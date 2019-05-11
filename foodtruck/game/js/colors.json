@@ -1,0 +1,11 @@
+{
+  "colors": {
+    "cream": "#f8f9e5",
+
+    "darkest_green": "#04280c",
+    "dark_green": "#063f13",
+    "green": "#07A52A",
+    "light_green": "#109C2F",
+    "lightest_green": "#17772d"
+  }
+}

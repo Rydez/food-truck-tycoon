@@ -1,0 +1,24 @@
+{
+  "name": "game",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "css-loader": "^1.0.0",
+    "pixi.js": "^4.8.2",
+    "riot": "^3.13.0",
+    "riot-compiler": "^3.5.1",
+    "riot-tag-loader": "^2.1.0",
+    "style-loader": "^0.23.1",
+    "stylus-loader": "^3.0.2",
+    "webpack": "^4.21.0"
+  },
+  "devDependencies": {
+    "webpack-cli": "^3.1.2"
+  }
+}

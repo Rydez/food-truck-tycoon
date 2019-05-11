@@ -1,0 +1,4 @@
+env/
+foodtruck/foodtruck/build/hot
+foodtruck/node_modules/
+*.pyc

@@ -1,0 +1,91 @@
+json('../js/colors.json')
+
+html, body
+  height: 100%
+  margin: 0
+  font-size: 1em
+  color: colors-cream
+
+app
+  display: flex
+  flex-flow: column
+  height: 100%
+  color: colors-cream
+  background: repeating-linear-gradient(
+    45deg,
+    colors-light_green,
+    colors-light_green 15px,
+    colors-green 15px,
+    colors-green 30px
+  );
+
+h1
+  margin: 0
+
+p
+  font-size: 120%
+
+button
+  padding: 6px 10px
+  position: relative
+  border: none
+  display: flex
+  align-items: center
+  justify-content: center
+  color: colors-cream
+  font-size: 20px
+  background-color: colors-light_green
+  box-shadow: 2px 2px 8px rgba(black, 0.4)
+  border-radius: 8px
+  cursor: pointer
+  &:after
+    content: ""
+    position: absolute
+    border-radius: 8px
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    box-shadow: 4px 4px 8px rgba(colors-green, 1) inset
+  &:before
+    content: ""
+    position: absolute
+    border-radius: 8px
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    box-shadow: -4px -4px 8px rgba(black, 0.2) inset
+  &:not(:last-of-type)
+    margin-right: 20px
+  &:hover
+    &:not(:disabled)
+      background-color: lighten(colors-light_green, 4%)
+  &.activated
+    background-color: lighten(colors-light_green, 6%)
+  &:active
+    background-color: darken(colors-light_green, 8%)
+    box-shadow: none
+    &:after
+      content: ""
+      box-shadow: 4px 4px 8px rgba(black, 0.3) inset
+    &:before
+      content: ""
+      box-shadow: -4px -4px 8px rgba(colors-green, 0.8) inset
+  &:focus
+    outline: 0
+  &:disabled
+    opacity: 0.5
+
+table
+  border-spacing: 0
+  tbody
+    tr:nth-child(odd)
+      background-color: darken(colors-lightest_green, 10%)
+    tr:nth-child(even)
+      background-color: darken(colors-lightest_green, 5%)
+    td
+      padding: 10px 10px
+      border: none
+      ul
+        margin: 0

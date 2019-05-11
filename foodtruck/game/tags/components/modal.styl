@@ -1,0 +1,56 @@
+json('../../js/colors.json')
+
+modal
+  position: fixed
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  justify-content: center
+  align-items: center
+  background: rgba(black, 0.5)
+  display: flex
+  z-index: 10000
+  overflow: auto
+  font-size: 120%
+  & > div
+    margin: auto
+    text-align: left
+    color: colors-cream
+    background: repeating-linear-gradient(
+      45deg,
+      colors-light_green,
+      colors-light_green 15px,
+      colors-green 15px,
+      colors-green 30px
+    );
+    tbody
+      display: block
+      max-height: calc(100vh - 300px)
+      overflow: auto
+    .title:first-child
+      font-weight: bold
+      margin: 0
+      width: 100%
+      padding: 15px
+    .content
+      background-color: colors-lightest_green
+      display: flex
+      align-items: center
+      justify-content: center
+      flex-direction: column
+      width: 100%
+      padding: 15px
+      line-height: 1.4em
+      box-sizing: border-box
+      .error-message
+        color: colors-cream
+        font-size: 90%
+      .buttons
+        margin-top: 15px
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        button, input[type=submit], input[type=button]
+          display: inline
+          margin: 0 5px 0 0

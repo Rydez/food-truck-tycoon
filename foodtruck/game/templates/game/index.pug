@@ -1,0 +1,28 @@
+html(lang="en")
+  head
+    title
+
+  body
+    //- link(rel="shortcut icon" href="/static/favicon.ico")
+
+    app
+
+    script.
+      window.django = {
+        csrf: '{{ csrf_token }}',
+        urls: {
+          login: '{% url "game:login" %}',
+          signup: '{% url "game:signup" %}',
+          logout: '{% url "game:logout" %}'
+        }
+      };
+
+    {% if user.is_authenticated %}
+    script.
+      window.django.user = {
+        username: '{{ user.username }}'
+      };
+    {% endif %}
+
+
+    script(src="/static/main-bundle.js")
