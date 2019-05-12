@@ -4,7 +4,9 @@ career-details
   button(onclick="{ open_new_career_modal }") New Career
 
   h2 Careers:
-  table
+  h1(if="{ opts.store.state.careers.length <= 0 }")
+    | You don't have any careers.
+  table(if="{ opts.store.state.careers.length > 0 }")
     tbody
       tr(each="{ career in opts.store.state.careers }")
         td

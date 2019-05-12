@@ -1,6 +1,7 @@
 app
   header
-  game-body(store="{ store }")
+  game-body(if="{ django.user }" store="{ store }")
+  game-overview(if="{ !django.user }")
 
   script.
     import './header.tag';
@@ -8,6 +9,9 @@ app
 
     import './game-body/game-body.tag';
     import './game-body/game-body.styl';
+
+    import './game-overview.tag';
+    import './game-overview.styl';
 
     import './components';
 

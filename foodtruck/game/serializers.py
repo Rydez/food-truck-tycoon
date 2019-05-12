@@ -71,7 +71,7 @@ class CareerMenuItemSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class CareerSerializer(serializers.HyperlinkedModelSerializer):
-  career_menu_items = CareerMenuItemSerializer(many=True)
+  career_menu_items = CareerMenuItemSerializer(many=True, read_only=True)
   class Meta:
     model = Career
     depth = 5
