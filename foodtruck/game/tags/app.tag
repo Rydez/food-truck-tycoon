@@ -21,8 +21,9 @@ app
 
     this.on('mount', async () => {
       store.state.on('update', this.update);
-      store.retrieve('careers');
-      store.retrieve('menu_items');
-      store.retrieve('equipment');
-      store.retrieve('resources');
+      await store.retrieve('careers');
+      await store.retrieve('menu_items');
+      await store.retrieve('equipment');
+      await store.retrieve('resources');
+      store.activate_section('careers');
     });

@@ -71,7 +71,6 @@ const activate_career = (career_id) => {
   state.trigger('update');
 };
 
-state.active_section_name = 'careers';
 const activate_section = (section_name) => {
   if (section_name === 'careers') {
     state.active_career_id = null;

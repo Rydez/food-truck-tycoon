@@ -70,8 +70,24 @@ class CareerMenuItemSerializer(serializers.HyperlinkedModelSerializer):
     )
 
 
+class CareerEquipmentSerializer(serializers.HyperlinkedModelSerializer):
+  equipment = serializers.PrimaryKeyRelatedField(queryset=Equipment.objects.all())
+  career = serializers.PrimaryKeyRelatedField(queryset=Career.objects.all())
+  class Meta:
+    model = CareerEquipment
+    depth = 5
+    fields = (
+      'url',
+      'id',
+      'career',
+      'equipment',
+      'created'
+    )
+
+
 class CareerSerializer(serializers.HyperlinkedModelSerializer):
   career_menu_items = CareerMenuItemSerializer(many=True, read_only=True)
+  career_equipment = CareerEquipmentSerializer(many=True, read_only=True)
   class Meta:
     model = Career
     depth = 5
@@ -84,7 +100,7 @@ class CareerSerializer(serializers.HyperlinkedModelSerializer):
       'player',
       'resources',
       'career_menu_items',
-      'equipment'
+      'career_equipment'
     )
 
 
@@ -111,16 +127,3 @@ class CareerResourceSerializer(serializers.HyperlinkedModelSerializer):
     model = CareerResource
     fields = ('url', 'id', 'career', 'resource', 'quantity', 'created')
 
-
-class CareerEquipmentSerializer(serializers.HyperlinkedModelSerializer):
-  equipment = serializers.PrimaryKeyRelatedField(queryset=Equipment.objects.all())
-  career = serializers.PrimaryKeyRelatedField(queryset=Career.objects.all())
-  class Meta:
-    model = CareerEquipment
-    fields = (
-      'url',
-      'id',
-      'career',
-      'equipment',
-      'created'
-    )

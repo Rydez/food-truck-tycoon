@@ -3,7 +3,11 @@ from .career import Career
 from .equipment import Equipment
 
 class CareerEquipment(models.Model):
-  career = models.ForeignKey(Career, on_delete=models.CASCADE)
+  career = models.ForeignKey(
+    Career,
+    related_name='career_equipment',
+    on_delete=models.CASCADE
+  )
   equipment = models.ForeignKey(Equipment, on_delete=models.CASCADE)
   created = models.DateTimeField(auto_now_add=True)
 
