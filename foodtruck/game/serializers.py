@@ -32,8 +32,15 @@ class MenuItemResourceSerializer(serializers.HyperlinkedModelSerializer):
     )
 
 
+class EquipmentSerializer(serializers.HyperlinkedModelSerializer):
+  class Meta:
+    model = Equipment
+    fields = ('url', 'id', 'name', 'cost', 'created')
+
+
 class MenuItemSerializer(serializers.HyperlinkedModelSerializer):
   menu_item_resources = MenuItemResourceSerializer(many=True)
+  equipment = EquipmentSerializer(many=True, read_only=True)
   class Meta:
     model = MenuItem
     depth = 5
@@ -108,12 +115,6 @@ class ResourceSerializer(serializers.HyperlinkedModelSerializer):
   class Meta:
     model = Resource
     fields = ('url', 'id', 'name', 'cost', 'unit', 'created')
-
-
-class EquipmentSerializer(serializers.HyperlinkedModelSerializer):
-  class Meta:
-    model = Equipment
-    fields = ('url', 'id', 'name', 'cost', 'created')
 
 
 class MenuItemEquipmentSerializer(serializers.HyperlinkedModelSerializer):

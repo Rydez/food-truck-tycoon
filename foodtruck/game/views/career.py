@@ -14,7 +14,11 @@ class IsAdminOrOwner(permissions.BasePermission):
   def has_object_permission(self, request, view, obj):
     is_admin = bool(request.user and request.user.is_staff)
     is_owner = obj.player == request.user
-    return is_admin or is_owner
+    editing_cash = False
+    if 'cash' in request.data:
+      editing_cash = True
+
+    return is_admin or (is_owner and not editing_cash)
 
 class IsAdminOrOwnerFilter(filters.BaseFilterBackend):
   def filter_queryset(self, request, queryset, view):

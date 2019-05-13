@@ -47,13 +47,17 @@ menu-item-details
                   | { menu_item_resource.resource.name }
             td
               ul
-                li(each="{ equipment in menu_item.equipment }")
+                li(
+                  each="{ equipment in menu_item.equipment }"
+                  class="{ parent.parent.parent.has_equipment(equipment) ? '' : 'red' }"
+                )
                   | { equipment.name }
             td
               input(
                 ref="menu_item_{ menu_item.id }"
                 type="checkbox"
                 name="menu_items"
+                disabled="{ parent.parent.has_all_equipment(menu_item) }"
                 value="{ menu_item.id }"
               )
       .buttons
@@ -118,4 +122,32 @@ menu-item-details
 
     this.destroy_menu_item = (ev, career_menu_item_id) => {
       this.opts.store.destroy('career_menu_items', career_menu_item_id);
+    };
+
+    this.has_equipment = (equipment) => {
+      if (!this.active_career) {
+        return false;
+      }
+
+      for (let career_equipment of this.active_career.career_equipment) {
+        if (career_equipment.equipment === equipment.id) {
+          return true;
+        }
+      }
+
+      return false;
+    };
+
+    this.has_all_equipment = (menu_item) => {
+      if (!this.active_career) {
+        return false;
+      }
+
+      const career_equipment_ids = this.active_career.career_equipment.map(e => e.id);
+
+      for (let required_equipment of menu_item.equipment) {
+        if (!career_equipment_ids.)
+      }
+
+      return false;
     };

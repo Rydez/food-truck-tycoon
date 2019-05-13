@@ -15,13 +15,9 @@ class CareerEquipment(models.Model):
     ordering = ('created',)
 
   def save(self, *args, **kwargs):
-
     # Subtract cost from career cash
-    print(self.career)
-    print(self.equipment)
-
-    career = Career.objects.get(id=self.career)
-    equipment = Equipment.objects.get(id=self.equipment)
+    career = Career.objects.get(id=self.career.id)
+    equipment = Equipment.objects.get(id=self.equipment.id)
     career.cash = career.cash - equipment.cost
     career.save()
 
