@@ -46,6 +46,38 @@ const create = async (name, data) => {
   }
 };
 
+const update = async (name, id, data) => {
+  try {
+    const response = await fetch(`/api/${name}/${id}/`, {
+      method: 'put',
+      body: JSON.stringify(data),
+      credentials: 'same-origin',
+      headers: {
+        'X-CSRFToken': window.django.csrf,
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    });
+
+    const text = await response.text();
+    let result = '';
+    try {
+      result = JSON.parse(text);
+    }
+    catch (error) {
+      console.log(error);
+      result = text;
+    }
+
+    console.log(result)
+
+    retrieve('careers');
+  }
+  catch (err) {
+    console.log('Failed', err);
+  }
+};
+
 const destroy = async (name, id) => {
   try {
     const response = await fetch(`/api/${name}/${id}/`, {
@@ -84,6 +116,7 @@ export {
   state,
   retrieve,
   create,
+  update,
   destroy,
   activate_career,
   activate_section

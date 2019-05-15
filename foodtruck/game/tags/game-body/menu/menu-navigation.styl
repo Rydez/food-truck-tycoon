@@ -3,5 +3,9 @@ json('../../../js/colors.json')
 menu-navigation
   display: flex
   button
-    flex: 1 1 0
+    padding: 0 20px
     height: 90px
+    &:not(:first-of-type)
+      margin-left: auto
+    &:not(:last-of-type)
+      margin-right: auto

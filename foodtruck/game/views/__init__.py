@@ -1,6 +1,7 @@
 
 from .player import *
 from .career import *
+from .location import *
 from .menu_item import *
 from .resource import *
 from .equipment import *

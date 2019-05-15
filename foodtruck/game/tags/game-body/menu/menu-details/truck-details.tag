@@ -1,2 +1,2 @@
 truck-details
-  p Upgrade your truck!
+  p Upgrade your truck to increase capital!

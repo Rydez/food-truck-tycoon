@@ -2,6 +2,7 @@ from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from .models import (
   Career,
+  Location,
   MenuItem,
   Resource,
   Equipment,
@@ -17,6 +18,12 @@ class PlayerSerializer(serializers.HyperlinkedModelSerializer):
   class Meta:
     model = get_user_model()
     fields = ('url', 'username', 'email', 'groups', 'careers')
+
+
+class LocationSerializer(serializers.HyperlinkedModelSerializer):
+  class Meta:
+    model = Location
+    fields = ('url', 'id', 'name', 'cost')
 
 
 class MenuItemResourceSerializer(serializers.HyperlinkedModelSerializer):
@@ -53,13 +60,11 @@ class MenuItemSerializer(serializers.HyperlinkedModelSerializer):
       'created'
     )
 
-  # def to_representation(self, data):
-  #   res = super(MenuItemSerializer, self).to_representation(data)
-  #   print(type(res))
-  #   return res
-  #   # print(data)
-  #   # print(res)
-  #   # return { item['id']: item for item in res }
+
+class ResourceSerializer(serializers.HyperlinkedModelSerializer):
+  class Meta:
+    model = Resource
+    fields = ('url', 'id', 'name', 'cost', 'unit', 'created')
 
 
 class CareerMenuItemSerializer(serializers.HyperlinkedModelSerializer):
@@ -92,7 +97,24 @@ class CareerEquipmentSerializer(serializers.HyperlinkedModelSerializer):
     )
 
 
+class CareerResourceSerializer(serializers.HyperlinkedModelSerializer):
+  resource = serializers.PrimaryKeyRelatedField(queryset=Resource.objects.all())
+  career = serializers.PrimaryKeyRelatedField(queryset=Career.objects.all())
+  class Meta:
+    model = CareerResource
+    depth = 5
+    fields = (
+      'url',
+      'id',
+      'career',
+      'resource',
+      'quantity',
+      'created'
+    )
+
+
 class CareerSerializer(serializers.HyperlinkedModelSerializer):
+  career_resources = CareerResourceSerializer(many=True, read_only=True)
   career_menu_items = CareerMenuItemSerializer(many=True, read_only=True)
   career_equipment = CareerEquipmentSerializer(many=True, read_only=True)
   class Meta:
@@ -105,26 +127,13 @@ class CareerSerializer(serializers.HyperlinkedModelSerializer):
       'created',
       'cash',
       'player',
-      'resources',
+      'career_resources',
       'career_menu_items',
       'career_equipment'
     )
-
-
-class ResourceSerializer(serializers.HyperlinkedModelSerializer):
-  class Meta:
-    model = Resource
-    fields = ('url', 'id', 'name', 'cost', 'unit', 'created')
 
 
 class MenuItemEquipmentSerializer(serializers.HyperlinkedModelSerializer):
   class Meta:
     model = MenuItemEquipment
     fields = ('url', 'id', 'menu_item', 'equipment', 'created')
-
-
-class CareerResourceSerializer(serializers.HyperlinkedModelSerializer):
-  class Meta:
-    model = CareerResource
-    fields = ('url', 'id', 'career', 'resource', 'quantity', 'created')
-

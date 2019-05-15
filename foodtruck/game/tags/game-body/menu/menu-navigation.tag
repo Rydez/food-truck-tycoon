@@ -28,6 +28,25 @@ menu-navigation
     onclick="{ activate_section }"
     value="trucks"
   ) Trucks
+  button(
+    class="{ activated: active_section_name === 'locations' }"
+    disabled="{ !active_career_id }"
+    onclick="{ activate_section }"
+    value="locations"
+  ) Location
+  button(
+    class="{ activated: active_section_name === 'employees' }"
+    disabled="{ !active_career_id }"
+    onclick="{ activate_section }"
+    value="employees"
+  ) Staff
+  button(
+    class="{ activated: active_section_name === 'sales' }"
+    disabled="{ !active_career_id }"
+    onclick="{ activate_section }"
+    value="sales"
+  ) Sales
+
 
   script.
 

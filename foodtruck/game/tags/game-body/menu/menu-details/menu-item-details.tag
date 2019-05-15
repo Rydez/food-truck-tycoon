@@ -57,7 +57,7 @@ menu-item-details
                 ref="menu_item_{ menu_item.id }"
                 type="checkbox"
                 name="menu_items"
-                disabled="{ parent.parent.has_all_equipment(menu_item) }"
+                disabled="{ !parent.parent.has_all_equipment(menu_item) }"
                 value="{ menu_item.id }"
               )
       .buttons
@@ -143,11 +143,14 @@ menu-item-details
         return false;
       }
 
-      const career_equipment_ids = this.active_career.career_equipment.map(e => e.id);
+      const career_equipment = this.active_career.career_equipment;
+      const career_equipment_ids = career_equipment.map(e => e.equipment);
 
       for (let required_equipment of menu_item.equipment) {
-        if (!career_equipment_ids.)
+        if (!career_equipment_ids.includes(required_equipment.id)) {
+          return false;
+        }
       }
 
-      return false;
+      return true;
     };

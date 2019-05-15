@@ -6,14 +6,14 @@ from .permissions import IsAdminOrCareerOwner, IsAdminOrCareerOwnerFilter
 
 class HasRequiredCareerEquipment(permissions.BasePermission):
   def has_permission(self, request, view):
-    if 'career_id' not in request.data or 'menu_item_id' not in request.data:
+    if 'career' not in request.data or 'menu_item' not in request.data:
       return False
 
-    career_id = request.data['career_id']
+    career_id = request.data['career']
     career_equipment = Career.objects.get(id=career_id).equipment.all()
     career_equipment_ids = [e.id for e in career_equipment]
 
-    menu_item_id = request.data['menu_item_id']
+    menu_item_id = request.data['menu_item']
     required_equipment = MenuItem.objects.get(id=menu_item_id).equipment.all()
     required_equipment_ids = [e.id for e in required_equipment]
 

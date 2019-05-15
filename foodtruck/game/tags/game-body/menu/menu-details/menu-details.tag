@@ -24,12 +24,18 @@ menu-details
     store="{ opts.store }"
   )
 
+  location-details(
+    if="{ active_section_name === 'locations' }"
+    store="{ opts.store }"
+  )
+
   script.
     import './career-details.tag';
     import './equipment-details.tag';
     import './truck-details.tag';
-    import './menu-item-details.tag'
-    import './resource-details.tag'
+    import './menu-item-details.tag';
+    import './resource-details.tag';
+    import './location-detials.tag';
 
     this.on('update', () => {
       this.active_section_name = this.opts.store.state.active_section_name;

@@ -3,6 +3,7 @@ from .career import Career
 from .menu_item import MenuItem
 from .equipment import Equipment
 from .resource import Resource
+from .location import Location
 from .career_resource import CareerResource
 from .career_menu_item import CareerMenuItem
 from .career_equipment import CareerEquipment

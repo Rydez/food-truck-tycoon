@@ -16,8 +16,8 @@ class CareerEquipment(models.Model):
 
   def save(self, *args, **kwargs):
     # Subtract cost from career cash
-    career = Career.objects.get(id=self.career.id)
-    equipment = Equipment.objects.get(id=self.equipment.id)
+    career = self.career
+    equipment = self.equipment
     career.cash = career.cash - equipment.cost
     career.save()
 
