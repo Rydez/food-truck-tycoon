@@ -17,10 +17,12 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 from rest_framework import routers
 from game.views import (
+    TruckViewSet,
     PlayerViewSet,
     CareerViewSet,
     MenuItemViewSet,
     ResourceViewSet,
+    LocationViewSet,
     EquipmentViewSet,
     CareerResourceViewSet,
     CareerMenuItemViewSet,
@@ -30,11 +32,13 @@ from game.views import (
 )
 
 router = routers.DefaultRouter()
+router.register(r'trucks', TruckViewSet)
 router.register(r'careers', CareerViewSet)
 router.register(r'players', PlayerViewSet)
-router.register(r'menu_items', MenuItemViewSet)
 router.register(r'resources', ResourceViewSet)
 router.register(r'equipment', EquipmentViewSet)
+router.register(r'locations', LocationViewSet)
+router.register(r'menu_items', MenuItemViewSet)
 router.register(r'career_resources', CareerResourceViewSet)
 router.register(r'career_menu_items', CareerMenuItemViewSet)
 router.register(r'career_equipment', CareerEquipmentViewSet)

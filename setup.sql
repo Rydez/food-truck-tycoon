@@ -1,29 +1,54 @@
 
+-- Trucks
+INSERT INTO foodtruck.game_truck
+(id, name, cost, capacity, created)
+VALUES(1, 'First Truck', 10000.00, 1000.00, '2019-05-06 13:04:18.310');
+INSERT INTO foodtruck.game_truck
+(id, name, cost, capacity, created)
+VALUES(2, 'Second Truck', 50000.00, 5000.00, '2019-05-06 13:04:18.310');
+INSERT INTO foodtruck.game_truck
+(id, name, cost, capacity, created)
+VALUES(3, 'Third Truck', 100000.00, 10000.00, '2019-05-06 13:04:18.310');
+
+-- Locations
+INSERT INTO foodtruck.game_location
+(id, name, cost, created)
+VALUES(1, 'Neighborhood', 0.00, '2019-05-06 13:04:18.310');
+INSERT INTO foodtruck.game_location
+(id, name, cost, created)
+VALUES(2, 'Big Company', 500.00, '2019-05-06 13:04:18.310');
+INSERT INTO foodtruck.game_location
+(id, name, cost, created)
+VALUES(3, 'Beach', 1000.00, '2019-05-06 13:04:18.310');
+INSERT INTO foodtruck.game_location
+(id, name, cost, created)
+VALUES(4, 'Carnival', 2000.00, '2019-05-06 13:04:18.310');
+
 -- Equipment
 INSERT INTO foodtruck.game_equipment
-(id, name, cost, created)
-VALUES(1, 'Cotton Candy Machine', 200.00, '2019-05-06 13:04:18.310');
+(id, name, cost, weight, created)
+VALUES(1, 'Cotton Candy Machine', 200.00, 20.00, '2019-05-06 13:04:18.310');
 INSERT INTO foodtruck.game_equipment
-(id, name, cost, created)
-VALUES(2, 'Milkshake Machine', 750.00, '2019-05-06 13:04:53.697');
+(id, name, cost, weight, created)
+VALUES(2, 'Milkshake Machine', 750.00, 75.00, '2019-05-06 13:04:53.697');
 INSERT INTO foodtruck.game_equipment
-(id, name, cost, created)
-VALUES(3, 'Coffee Machine', 1000.00, '2019-05-06 13:05:36.917');
+(id, name, cost, weight, created)
+VALUES(3, 'Coffee Machine', 1000.00, 100.00, '2019-05-06 13:05:36.917');
 INSERT INTO foodtruck.game_equipment
-(id, name, cost, created)
-VALUES(4, 'Soda Fountain', 2000.00, '2019-05-06 13:07:09.218');
+(id, name, cost, weight, created)
+VALUES(4, 'Soda Fountain', 2000.00, 200.00, '2019-05-06 13:07:09.218');
 INSERT INTO foodtruck.game_equipment
-(id, name, cost, created)
-VALUES(5, 'Gas Range', 1200.00, '2019-05-06 13:07:55.688');
+(id, name, cost, weight, created)
+VALUES(5, 'Gas Range', 1200.00, 150.00, '2019-05-06 13:07:55.688');
 INSERT INTO foodtruck.game_equipment
-(id, name, cost, created)
-VALUES(6, 'Deep Fryer', 500.00, '2019-05-06 13:08:29.526');
+(id, name, cost, weight, created)
+VALUES(6, 'Deep Fryer', 500.00, 200.00, '2019-05-06 13:08:29.526');
 INSERT INTO foodtruck.game_equipment
-(id, name, cost, created)
-VALUES(7, 'Oven', 1500.00, '2019-05-06 13:09:27.030');
+(id, name, cost, weight, created)
+VALUES(7, 'Oven', 1500.00, 500.00, '2019-05-06 13:09:27.030');
 INSERT INTO foodtruck.game_equipment
-(id, name, cost, created)
-VALUES(8, 'Refrigerator', 500.00, '2019-05-06 13:16:08.476');
+(id, name, cost, weight, created)
+VALUES(8, 'Refrigerator', 500.00, 200.00, '2019-05-06 13:16:08.476');
 
 -- Menu Items
 INSERT INTO foodtruck.game_menuitem

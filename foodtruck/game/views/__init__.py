@@ -1,10 +1,11 @@
 
+from .truck import *
 from .player import *
 from .career import *
 from .location import *
-from .menu_item import *
 from .resource import *
 from .equipment import *
+from .menu_item import *
 from .career_resource import *
 from .career_menu_item import *
 from .career_equipment import *

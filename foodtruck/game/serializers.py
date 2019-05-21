@@ -2,6 +2,7 @@ from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from .models import (
   Career,
+  Truck,
   Location,
   MenuItem,
   Resource,
@@ -26,6 +27,12 @@ class LocationSerializer(serializers.HyperlinkedModelSerializer):
     fields = ('url', 'id', 'name', 'cost')
 
 
+class TruckSerializer(serializers.HyperlinkedModelSerializer):
+  class Meta:
+    model = Truck
+    fields = ('url', 'id', 'name', 'cost', 'capacity')
+
+
 class MenuItemResourceSerializer(serializers.HyperlinkedModelSerializer):
   class Meta:
     model = MenuItemResource
@@ -42,7 +49,7 @@ class MenuItemResourceSerializer(serializers.HyperlinkedModelSerializer):
 class EquipmentSerializer(serializers.HyperlinkedModelSerializer):
   class Meta:
     model = Equipment
-    fields = ('url', 'id', 'name', 'cost', 'created')
+    fields = ('url', 'id', 'name', 'cost', 'weight', 'created')
 
 
 class MenuItemSerializer(serializers.HyperlinkedModelSerializer):

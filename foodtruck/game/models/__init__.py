@@ -1,5 +1,6 @@
 from .player import Player
 from .career import Career
+from .truck import Truck
 from .menu_item import MenuItem
 from .equipment import Equipment
 from .resource import Resource
