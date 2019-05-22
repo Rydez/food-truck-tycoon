@@ -25,5 +25,7 @@ app
       await store.retrieve('menu_items');
       await store.retrieve('equipment');
       await store.retrieve('resources');
+      await store.retrieve('trucks');
+      await store.retrieve('locations');
       store.activate_section('careers');
     });

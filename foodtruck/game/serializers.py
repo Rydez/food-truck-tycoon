@@ -134,6 +134,7 @@ class CareerSerializer(serializers.HyperlinkedModelSerializer):
       'created',
       'cash',
       'player',
+      'truck',
       'career_resources',
       'career_menu_items',
       'career_equipment'
