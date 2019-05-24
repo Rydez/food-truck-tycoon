@@ -1,16 +1,33 @@
 truck-details
   p Get a bigger truck to do more business.
 
-  h2 Trucks:
-  h1 { truck.name }
-  h1 ${ truck.cost }
-  h1 Capacity: { truck.capacity }lbs
+  .truck
+    h2 { truck.name } Capacity: { truck.capacity }lbs
+    .buy-row
+      h2(
+        class="{ red: active_career.cash < truck.cost }"
+      ) ${ truck.cost }
+      button(
+        onclick="{  }"
+        disabled="{ \
+          active_career.truck === truck.id || \
+          active_career.cash < truck.cost \
+        }"
+      ) Buy
+      h2.red(if="{ active_career.truck === truck.id }") You own this truck.
 
-  button Buy
+    img(src="/static/{ get_image_name() }.png")
 
   .buttons
-    button Last
-    button Next
+    button.last(
+      onclick="{ last_truck }"
+      disabled="{ truck_index <= 0 }"
+    ) Last
+
+    button.next(
+      onclick="{ next_truck }"
+      disabled="{ truck_index >= Object.keys(state.trucks).length - 1 }"
+    ) Next
 
   modal(
     ref="upgrade_modal"
@@ -37,9 +54,11 @@ truck-details
   script.
     this.state = this.opts.store.state;
 
+    this.truck_index = 0;
+
     this.on('before-mount', () => {
       this.update_career();
-      this.truck = Object.values(this.state.trucks)[0];
+      this.truck = Object.values(this.state.trucks)[this.truck_index];
     });
 
     this.on('update', () => {
@@ -65,7 +84,23 @@ truck-details
     };
 
     this.buy = () => {
-      this.opts.store.create('career', {
+      this.opts.store.update('career', this.active_career_id, {
         truck: this.truck.id
       });
     };
+
+    this.get_image_name = () => {
+      return this.truck.name.toLowerCase().replace(/ /g, '-');
+    };
+
+    this.last_truck = () => {
+      this.truck_index -= 1;
+      this.truck = Object.values(this.state.trucks)[this.truck_index];
+      this.update();
+    }
+
+    this.next_truck = () => {
+      this.truck_index += 1;
+      this.truck = Object.values(this.state.trucks)[this.truck_index];
+      this.update();
+    }

@@ -26,6 +26,18 @@ class Career(models.Model):
   def save(self, *args, **kwargs):
     is_new = self.id is None
 
+
+    if not is_new:
+      original = Career.objects.get(id=self.id)
+      if self.truck and original.truck != self.truck:
+        truck = Truck.objects.get(id=self.truck)
+        pass
+
+      if self.location and original.location != self.location:
+        location = Location.objects.get(id=self.location)
+        pass
+
+
     # Call super first, so the id exists
     super(Career, self).save(*args, **kwargs)
 
