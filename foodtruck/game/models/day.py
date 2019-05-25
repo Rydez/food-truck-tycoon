@@ -1,19 +1,42 @@
 from django.db import models
-from django.contrib.auth import get_user_model
-from .resource import Resource
-from .menu_item import MenuItem
-from .equipment import Equipment
-from .location import Location
-from .truck import Truck
-from .career_resource import CareerResource
 
-Player = get_user_model()
+from .career import Career
+# - days
+#   + headline
+#   + good_location_id
+#   + bad_location_id
+#   + max_temp
+#   + min_temp
+#   + dawn_condition (sunny, cloudy, rainy, stormy)
+#   + noon_condition (sunny, cloudy, rainy, stormy)
+#   + dusk_condition (sunny, cloudy, rainy, stormy)
 
-class Career(models.Model):
-  name = models.CharField(max_length=100, blank=True, default='')
+class Day(models.Model):
+  WEATHER_CONDITIONS = [
+    ('sunny', 'sunny'),
+    ('cloudy', 'cloudy'),
+    ('rainy', 'rainy'),
+    ('stormy', 'stormy'),
+  ]
+
   created = models.DateTimeField(auto_now_add=True)
+  career = models.ForeignKey(Career, on_delete=models.SET_NULL, null=True)
+  headline = models.CharField(max_length=500)
+  max_temp = models.SmallIntegerField()
+  min_temp = models.SmallIntegerField()
+  dawn_condition = models.CharField(max_length=50)
+  noon_condition = models.CharField(max_length=50)
+  dusk_condition = models.CharField(max_length=50)
+  location_popularity
+  location_satisfaction
+  menu_item_popularity
+  menu_item_satisfaction
+
+
+
+
+  name = models.CharField(max_length=100, blank=True, default='')
   player = models.ForeignKey(Player, related_name='careers', on_delete=models.CASCADE)
-  location = models.ForeignKey(Location, on_delete=models.SET_NULL, null=True, blank=True, default=1)
   truck = models.ForeignKey(Truck, on_delete=models.SET_NULL, null=True, blank=True, default=1)
   cash = models.DecimalField(max_digits=8, decimal_places=2, default=2000)
   resources = models.ManyToManyField(Resource, through='CareerResource')

@@ -1,15 +1,15 @@
 game-body
   game-header(store="{ opts.store }")
-  #display-and-menu
+  #menu-and-day
     menu(store="{ opts.store }")
-    display
+    day
 
   script.
     import './game-header.tag';
     import './game-header.styl';
 
-    import './display.tag';
-    import './display.styl';
+    import './day/day.tag';
+    import './day/day.styl';
 
     import './menu/menu.tag';
     import './menu/menu.styl';

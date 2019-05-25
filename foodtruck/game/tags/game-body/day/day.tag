@@ -1,2 +1,2 @@
-display
+day
   p Display is here

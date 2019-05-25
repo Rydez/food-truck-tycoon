@@ -124,8 +124,8 @@ class CareerSerializer(serializers.HyperlinkedModelSerializer):
   career_resources = CareerResourceSerializer(many=True, read_only=True)
   career_menu_items = CareerMenuItemSerializer(many=True, read_only=True)
   career_equipment = CareerEquipmentSerializer(many=True, read_only=True)
-  truck = serializers.PrimaryKeyRelatedField(queryset=Truck.objects.all())
-  location = serializers.PrimaryKeyRelatedField(queryset=Location.objects.all())
+  truck = serializers.PrimaryKeyRelatedField(queryset=Truck.objects.all(), required=False)
+  location = serializers.PrimaryKeyRelatedField(queryset=Location.objects.all(), required=False)
   class Meta:
     model = Career
     depth = 5

@@ -63,7 +63,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "05ba96aa11dae48a2480";
+/******/ 	var hotCurrentHash = "62cba1307a12eedf3638";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -874,25 +874,25 @@ eval("\n    var riot = __webpack_require__(/*! riot */ \"./node_modules/riot/rio
 
 /***/ }),
 
-/***/ "./game/tags/game-body/display.styl":
+/***/ "./game/tags/game-body/day/day.styl":
 /*!******************************************!*\
-  !*** ./game/tags/game-body/display.styl ***!
+  !*** ./game/tags/game-body/day/day.styl ***!
   \******************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("\nvar content = __webpack_require__(/*! !../../../node_modules/css-loader!../../../node_modules/stylus-loader!./display.styl */ \"./node_modules/css-loader/index.js!./node_modules/stylus-loader/index.js!./game/tags/game-body/display.styl\");\n\nif(typeof content === 'string') content = [[module.i, content, '']];\n\nvar transform;\nvar insertInto;\n\n\n\nvar options = {\"hmr\":true}\n\noptions.transform = transform\noptions.insertInto = undefined;\n\nvar update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ \"./node_modules/style-loader/lib/addStyles.js\")(content, options);\n\nif(content.locals) module.exports = content.locals;\n\nif(true) {\n\tmodule.hot.accept(/*! !../../../node_modules/css-loader!../../../node_modules/stylus-loader!./display.styl */ \"./node_modules/css-loader/index.js!./node_modules/stylus-loader/index.js!./game/tags/game-body/display.styl\", function() {\n\t\tvar newContent = __webpack_require__(/*! !../../../node_modules/css-loader!../../../node_modules/stylus-loader!./display.styl */ \"./node_modules/css-loader/index.js!./node_modules/stylus-loader/index.js!./game/tags/game-body/display.styl\");\n\n\t\tif(typeof newContent === 'string') newContent = [[module.i, newContent, '']];\n\n\t\tvar locals = (function(a, b) {\n\t\t\tvar key, idx = 0;\n\n\t\t\tfor(key in a) {\n\t\t\t\tif(!b || a[key] !== b[key]) return false;\n\t\t\t\tidx++;\n\t\t\t}\n\n\t\t\tfor(key in b) idx--;\n\n\t\t\treturn idx === 0;\n\t\t}(content.locals, newContent.locals));\n\n\t\tif(!locals) throw new Error('Aborting CSS HMR due to changed css-modules locals.');\n\n\t\tupdate(newContent);\n\t});\n\n\tmodule.hot.dispose(function() { update(); });\n}\n\n//# sourceURL=webpack:///./game/tags/game-body/display.styl?");
+eval("\nvar content = __webpack_require__(/*! !../../../../node_modules/css-loader!../../../../node_modules/stylus-loader!./day.styl */ \"./node_modules/css-loader/index.js!./node_modules/stylus-loader/index.js!./game/tags/game-body/day/day.styl\");\n\nif(typeof content === 'string') content = [[module.i, content, '']];\n\nvar transform;\nvar insertInto;\n\n\n\nvar options = {\"hmr\":true}\n\noptions.transform = transform\noptions.insertInto = undefined;\n\nvar update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ \"./node_modules/style-loader/lib/addStyles.js\")(content, options);\n\nif(content.locals) module.exports = content.locals;\n\nif(true) {\n\tmodule.hot.accept(/*! !../../../../node_modules/css-loader!../../../../node_modules/stylus-loader!./day.styl */ \"./node_modules/css-loader/index.js!./node_modules/stylus-loader/index.js!./game/tags/game-body/day/day.styl\", function() {\n\t\tvar newContent = __webpack_require__(/*! !../../../../node_modules/css-loader!../../../../node_modules/stylus-loader!./day.styl */ \"./node_modules/css-loader/index.js!./node_modules/stylus-loader/index.js!./game/tags/game-body/day/day.styl\");\n\n\t\tif(typeof newContent === 'string') newContent = [[module.i, newContent, '']];\n\n\t\tvar locals = (function(a, b) {\n\t\t\tvar key, idx = 0;\n\n\t\t\tfor(key in a) {\n\t\t\t\tif(!b || a[key] !== b[key]) return false;\n\t\t\t\tidx++;\n\t\t\t}\n\n\t\t\tfor(key in b) idx--;\n\n\t\t\treturn idx === 0;\n\t\t}(content.locals, newContent.locals));\n\n\t\tif(!locals) throw new Error('Aborting CSS HMR due to changed css-modules locals.');\n\n\t\tupdate(newContent);\n\t});\n\n\tmodule.hot.dispose(function() { update(); });\n}\n\n//# sourceURL=webpack:///./game/tags/game-body/day/day.styl?");
 
 /***/ }),
 
-/***/ "./game/tags/game-body/display.tag":
+/***/ "./game/tags/game-body/day/day.tag":
 /*!*****************************************!*\
-  !*** ./game/tags/game-body/display.tag ***!
+  !*** ./game/tags/game-body/day/day.tag ***!
   \*****************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("\n    var riot = __webpack_require__(/*! riot */ \"./node_modules/riot/riot.min.js\")\n    //src: game/tags/game-body/display.tag\n\nriot.tag2('display',\n  '<p>Display is here</p>',\n  '',\n  '', function(opts) {\n});\n    \n  if (true) {\n    module.hot.accept()\n    if (module.hot.data) {\n      riot.reload('display')\n    }\n  }\n  \n\n//# sourceURL=webpack:///./game/tags/game-body/display.tag?");
+eval("\n    var riot = __webpack_require__(/*! riot */ \"./node_modules/riot/riot.min.js\")\n    //src: game/tags/game-body/day/day.tag\n\nriot.tag2('day',\n  '<p>Display is here</p>',\n  '',\n  '', function(opts) {\n});\n    \n  if (true) {\n    module.hot.accept()\n    if (module.hot.data) {\n      riot.reload('day')\n    }\n  }\n  \n\n//# sourceURL=webpack:///./game/tags/game-body/day/day.tag?");
 
 /***/ }),
 
@@ -915,7 +915,7 @@ eval("\nvar content = __webpack_require__(/*! !../../../node_modules/css-loader!
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _game_header_tag__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./game-header.tag */ \"./game/tags/game-body/game-header.tag\");\n/* harmony import */ var _game_header_tag__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_game_header_tag__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _game_header_styl__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./game-header.styl */ \"./game/tags/game-body/game-header.styl\");\n/* harmony import */ var _game_header_styl__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_game_header_styl__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _display_tag__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./display.tag */ \"./game/tags/game-body/display.tag\");\n/* harmony import */ var _display_tag__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_display_tag__WEBPACK_IMPORTED_MODULE_2__);\n/* harmony import */ var _display_styl__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./display.styl */ \"./game/tags/game-body/display.styl\");\n/* harmony import */ var _display_styl__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_display_styl__WEBPACK_IMPORTED_MODULE_3__);\n/* harmony import */ var _menu_menu_tag__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./menu/menu.tag */ \"./game/tags/game-body/menu/menu.tag\");\n/* harmony import */ var _menu_menu_styl__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./menu/menu.styl */ \"./game/tags/game-body/menu/menu.styl\");\n/* harmony import */ var _menu_menu_styl__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_menu_menu_styl__WEBPACK_IMPORTED_MODULE_5__);\n\n    var riot = __webpack_require__(/*! riot */ \"./node_modules/riot/riot.min.js\")\n    //src: game/tags/game-body/game-body.tag\n\n\n\n\n\n\n\nriot.tag2('game-body',\n  '<game-header store=\"{opts.store}\"></game-header> <div id=\"display-and-menu\"> <menu store=\"{opts.store}\"></menu> <display></display> </div>',\n  '',\n  '', function(opts) {\n});\n    \n  if (true) {\n    module.hot.accept()\n    if (module.hot.data) {\n      riot.reload('game-body')\n    }\n  }\n  \n\n//# sourceURL=webpack:///./game/tags/game-body/game-body.tag?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _game_header_tag__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./game-header.tag */ \"./game/tags/game-body/game-header.tag\");\n/* harmony import */ var _game_header_tag__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_game_header_tag__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _game_header_styl__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./game-header.styl */ \"./game/tags/game-body/game-header.styl\");\n/* harmony import */ var _game_header_styl__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_game_header_styl__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _day_day_tag__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./day/day.tag */ \"./game/tags/game-body/day/day.tag\");\n/* harmony import */ var _day_day_tag__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_day_day_tag__WEBPACK_IMPORTED_MODULE_6__);\n/* harmony import */ var _day_day_styl__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./day/day.styl */ \"./game/tags/game-body/day/day.styl\");\n/* harmony import */ var _day_day_styl__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_day_day_styl__WEBPACK_IMPORTED_MODULE_5__);\n/* harmony import */ var _menu_menu_tag__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./menu/menu.tag */ \"./game/tags/game-body/menu/menu.tag\");\n/* harmony import */ var _menu_menu_styl__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./menu/menu.styl */ \"./game/tags/game-body/menu/menu.styl\");\n/* harmony import */ var _menu_menu_styl__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_menu_menu_styl__WEBPACK_IMPORTED_MODULE_4__);\n\n    var riot = __webpack_require__(/*! riot */ \"./node_modules/riot/riot.min.js\")\n    //src: game/tags/game-body/game-body.tag\n\n\n\n\n\n\n\nriot.tag2('game-body',\n  '<game-header store=\"{opts.store}\"></game-header> <div id=\"menu-and-day\"> <menu store=\"{opts.store}\"></menu> <day></day> </div>',\n  '',\n  '', function(opts) {\n});\n    \n  if (true) {\n    module.hot.accept()\n    if (module.hot.data) {\n      riot.reload('game-body')\n    }\n  }\n  \n\n//# sourceURL=webpack:///./game/tags/game-body/game-body.tag?");
 
 /***/ }),
 
@@ -937,7 +937,7 @@ eval("\nvar content = __webpack_require__(/*! !../../../node_modules/css-loader!
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("\n    var riot = __webpack_require__(/*! riot */ \"./node_modules/riot/riot.min.js\")\n    //src: game/tags/game-body/game-header.tag\n\nriot.tag2('game-header',\n  '<p if=\"{cash}\">${cash}</p> <p if=\"{!cash}\">---</p>',\n  '',\n  '', function(opts) {\n    this.on('update', () => {\n      const state = this.opts.store.state;\n      const active_career_id = state.active_career_id;\n      if (!active_career_id) {\n        this.cash = null;\n        return;\n      }\n\n      const active_career = state.careers.find(c => c.id === active_career_id);\n      this.cash = active_career.cash.toFixed(2);\n    });\n});\n    \n  if (true) {\n    module.hot.accept()\n    if (module.hot.data) {\n      riot.reload('game-header')\n    }\n  }\n  \n\n//# sourceURL=webpack:///./game/tags/game-body/game-header.tag?");
+eval("\n    var riot = __webpack_require__(/*! riot */ \"./node_modules/riot/riot.min.js\")\n    //src: game/tags/game-body/game-header.tag\n\nriot.tag2('game-header',\n  '<div class=\"cash\" if=\"{cash}\">${cash}</div> <div class=\"cash\" if=\"{!cash}\">---</div>',\n  '',\n  '', function(opts) {\n    this.on('update', () => {\n      const state = this.opts.store.state;\n      const active_career_id = state.active_career_id;\n      if (!active_career_id) {\n        this.cash = null;\n        return;\n      }\n\n      const active_career = state.careers.find(c => c.id === active_career_id);\n      this.cash = active_career.cash.toFixed(2);\n    });\n});\n    \n  if (true) {\n    module.hot.accept()\n    if (module.hot.data) {\n      riot.reload('game-header')\n    }\n  }\n  \n\n//# sourceURL=webpack:///./game/tags/game-body/game-header.tag?");
 
 /***/ }),
 
@@ -1141,14 +1141,14 @@ eval("exports = module.exports = __webpack_require__(/*! ../../../node_modules/c
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js!./node_modules/stylus-loader/index.js!./game/tags/game-body/display.styl":
+/***/ "./node_modules/css-loader/index.js!./node_modules/stylus-loader/index.js!./game/tags/game-body/day/day.styl":
 /*!*************************************************************************************************!*\
-  !*** ./node_modules/css-loader!./node_modules/stylus-loader!./game/tags/game-body/display.styl ***!
+  !*** ./node_modules/css-loader!./node_modules/stylus-loader!./game/tags/game-body/day/day.styl ***!
   \*************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ \"./node_modules/css-loader/lib/css-base.js\")(false);\n// imports\n\n\n// module\nexports.push([module.i, \"\", \"\"]);\n\n// exports\n\n\n//# sourceURL=webpack:///./game/tags/game-body/display.styl?./node_modules/css-loader!./node_modules/stylus-loader");
+eval("exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ \"./node_modules/css-loader/lib/css-base.js\")(false);\n// imports\n\n\n// module\nexports.push([module.i, \"\", \"\"]);\n\n// exports\n\n\n//# sourceURL=webpack:///./game/tags/game-body/day/day.styl?./node_modules/css-loader!./node_modules/stylus-loader");
 
 /***/ }),
 
@@ -1159,7 +1159,7 @@ eval("exports = module.exports = __webpack_require__(/*! ../../../node_modules/c
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ \"./node_modules/css-loader/lib/css-base.js\")(false);\n// imports\n\n\n// module\nexports.push([module.i, \"game-body {\\n  margin: 20px;\\n  display: flex;\\n  flex-flow: column;\\n}\\ngame-body #display-and-menu {\\n  display: flex;\\n  flex-direction: row;\\n  height: 100%;\\n}\\ngame-body #display-and-menu display,\\ngame-body #display-and-menu menu {\\n  padding: 10px;\\n  flex: 1 1 0;\\n  background-color: #17772d;\\n  border-radius: 10px;\\n  box-shadow: rgba(0,0,0,0.4) 0 0 30px inset;\\n}\\n\", \"\"]);\n\n// exports\n\n\n//# sourceURL=webpack:///./game/tags/game-body/game-body.styl?./node_modules/css-loader!./node_modules/stylus-loader");
+eval("exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ \"./node_modules/css-loader/lib/css-base.js\")(false);\n// imports\n\n\n// module\nexports.push([module.i, \"game-body {\\n  margin: 20px;\\n  display: flex;\\n  flex-flow: column;\\n}\\ngame-body #menu-and-day {\\n  display: flex;\\n  flex-direction: row;\\n  height: 100%;\\n}\\ngame-body #menu-and-day day,\\ngame-body #menu-and-day menu {\\n  padding: 10px;\\n  flex: 1 1 0;\\n  background-color: #17772d;\\n  border-radius: 10px;\\n  box-shadow: rgba(0,0,0,0.4) 0 0 30px inset;\\n}\\n\", \"\"]);\n\n// exports\n\n\n//# sourceURL=webpack:///./game/tags/game-body/game-body.styl?./node_modules/css-loader!./node_modules/stylus-loader");
 
 /***/ }),
 
@@ -1170,7 +1170,7 @@ eval("exports = module.exports = __webpack_require__(/*! ../../../node_modules/c
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ \"./node_modules/css-loader/lib/css-base.js\")(false);\n// imports\n\n\n// module\nexports.push([module.i, \"game-header {\\n  padding: 10px;\\n  background-color: #063f13;\\n  border-radius: 10px;\\n  margin-bottom: 20px;\\n}\\n\", \"\"]);\n\n// exports\n\n\n//# sourceURL=webpack:///./game/tags/game-body/game-header.styl?./node_modules/css-loader!./node_modules/stylus-loader");
+eval("exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ \"./node_modules/css-loader/lib/css-base.js\")(false);\n// imports\n\n\n// module\nexports.push([module.i, \"game-header {\\n  padding: 10px;\\n  background-color: #063f13;\\n  border-radius: 10px;\\n  margin-bottom: 20px;\\n  display: flex;\\n  font-weight: bold;\\n}\\ngame-header .cash {\\n  margin-left: auto;\\n}\\n\", \"\"]);\n\n// exports\n\n\n//# sourceURL=webpack:///./game/tags/game-body/game-header.styl?./node_modules/css-loader!./node_modules/stylus-loader");
 
 /***/ }),
 

@@ -8,75 +8,12 @@ Extras:
   + Refridgerator
   + Ice Machine
 
-- Menu Items
-  + One-Offs
-    - Cotton Candy Machine
-    - Milk Shake Machine
-    - Coffee Machine
-    - Soda Machine
-
-  + Tacos
-    - Resouces
-      + Beef
-      + Lettuce
-      + Cheese
-      + Tortilla
-      + Basket
-    - Equipment
-      + Range
-
-  + Burgers
-    - Resouces
-      + Beef
-      + Lettuce
-      + Cheese
-      + Buns
-      + Basket
-    - Equipment
-      + Range
-
-  + French Fries
-    - Resources
-      + Potatoes
-      + Basket
-    - Equipment
-      + Deep Frier
-
-  + Donuts
-    - Resources
-      + Dough
-      + Basket
-    - Equipment
-      + Deep Frier
-
-  + Pizza
-    - Resource
-      + Dough
-      + Sauce
-      + Cheese
-    - Equipment
-      + Oven
-
-
 How the models will look:
-
-- players
-
-- careers
-  + player_id
-  + truck_id
-  + location_id
-  + price
-  + cash
 
 - sales
   + price
   + review
   + day_id
-
-- locations
-  + name
-  + cost
 
 - employees
   + name
@@ -93,44 +30,6 @@ How the models will look:
 - career_advertisements
   + career_id
   + advertisement_id
-
-- trucks
-  + name
-  + cost
-  + max_capacity
-
-- resources
-  + name
-  + cost
-
-- career_resources
-  + career_id
-  + resource_id
-  + quantity
-
-- equipment
-  + name
-  + cost
-
-- career_equipment
-  + career_id
-  + equipment_id
-
-- foods
-  + name
-
-- career_foods
-  + career_id
-  + food_id
-
-- food_resources
-  + food_id
-  + resource_id
-  + quantity
-
-- food_equipment
-  + food_id
-  + equipment_id
 
 - days
   + headline

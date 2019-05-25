@@ -1,6 +1,6 @@
 game-header
-  p(if="{ cash }") ${ cash }
-  p(if="{ !cash }") ---
+  .cash(if="{ cash }") ${ cash }
+  .cash(if="{ !cash }") ---
 
   script.
     this.on('update', () => {
