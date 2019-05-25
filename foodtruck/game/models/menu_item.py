@@ -7,6 +7,8 @@ class MenuItem(models.Model):
   created = models.DateTimeField(auto_now_add=True)
   resources = models.ManyToManyField(Resource, through='MenuItemResource')
   equipment = models.ManyToManyField(Equipment, through='MenuItemEquipment')
+  popularity = models.DecimalField(max_digits=8, decimal_places=2, default=0)
+  satisfaction = models.DecimalField(max_digits=8, decimal_places=2, default=0)
 
   class Meta:
     ordering = ('created',)

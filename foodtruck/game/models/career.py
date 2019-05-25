@@ -6,6 +6,7 @@ from .equipment import Equipment
 from .location import Location
 from .truck import Truck
 from .career_resource import CareerResource
+from .day import Day
 
 Player = get_user_model()
 
@@ -41,8 +42,13 @@ class Career(models.Model):
     # Call super first, so the id exists
     super(Career, self).save(*args, **kwargs)
 
-    # Initialize career resources with zero quantities
+    # Initialize career
     if is_new:
+
+      # Resources with zero quantities
       resources = Resource.objects.all()
       for resource in resources:
         CareerResource.objects.create(career_id=self.id, resource_id=resource.id)
+
+      # First day
+      Day.objects.create(career_id=self.id)
