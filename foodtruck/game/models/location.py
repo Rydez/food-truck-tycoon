@@ -5,7 +5,6 @@ class Location(models.Model):
   cost = models.DecimalField(max_digits=8, decimal_places=2, default=0)
   created = models.DateTimeField(auto_now_add=True)
   popularity = models.DecimalField(max_digits=8, decimal_places=2, default=0)
-  satisfaction = models.DecimalField(max_digits=8, decimal_places=2, default=0)
 
   class Meta:
     ordering = ('created',)

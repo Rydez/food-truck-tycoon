@@ -1,4 +1,5 @@
 
+from .day import *
 from .truck import *
 from .player import *
 from .career import *

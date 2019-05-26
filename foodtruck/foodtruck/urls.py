@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 from rest_framework import routers
 from game.views import (
+    DayViewSet,
     TruckViewSet,
     PlayerViewSet,
     CareerViewSet,
@@ -32,6 +33,7 @@ from game.views import (
 )
 
 router = routers.DefaultRouter()
+router.register(r'days', DayViewSet)
 router.register(r'trucks', TruckViewSet)
 router.register(r'careers', CareerViewSet)
 router.register(r'players', PlayerViewSet)

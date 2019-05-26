@@ -5,16 +5,16 @@ truck-details
     h2 { truck.name } Capacity: { truck.capacity }lbs
     .buy-row
       h2(
-        class="{ red: active_career.cash < truck.cost }"
+        class="{ red: state.active_career.cash < truck.cost }"
       ) ${ truck.cost }
       button(
         onclick="{  }"
         disabled="{ \
-          active_career.truck === truck.id || \
-          active_career.cash < truck.cost \
+          state.active_career.truck === truck.id || \
+          state.active_career.cash < truck.cost \
         }"
       ) Buy
-      h2.red(if="{ active_career.truck === truck.id }") You own this truck.
+      h2.red(if="{ state.active_career.truck === truck.id }") You own this truck.
 
     img(src="/static/{ get_image_name() }.png")
 
@@ -57,23 +57,8 @@ truck-details
     this.truck_index = 0;
 
     this.on('before-mount', () => {
-      this.update_career();
       this.truck = Object.values(this.state.trucks)[this.truck_index];
     });
-
-    this.on('update', () => {
-      this.update_career();
-    });
-
-    this.update_career = () => {
-      this.active_career_id = this.state.active_career_id;
-      for (let career of this.state.careers) {
-        if (career.id === this.active_career_id) {
-          this.active_career = career
-          break;
-        }
-      }
-    };
 
     this.open_upgrade_modal = () => {
       this.refs.upgrade_modal.show();
@@ -84,7 +69,7 @@ truck-details
     };
 
     this.buy = () => {
-      this.opts.store.update('career', this.active_career_id, {
+      this.opts.store.update('career', this.active_career.id, {
         truck: this.truck.id
       });
     };

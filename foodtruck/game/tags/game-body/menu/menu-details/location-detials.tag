@@ -5,15 +5,15 @@ location-details
     h2 { location.name }
     .rent-row
       h2(
-        class="{ red: active_career.cash < location.cost }"
+        class="{ red: state.active_career.cash < location.cost }"
       ) ${ location.cost }
       button(
         disabled="{ \
-          active_career.location === location.id || \
-          active_career.cash < location.cost \
+          state.active_career.location === location.id || \
+          state.active_career.cash < location.cost \
         }"
       ) Rent
-      h2.red(if="{ active_career.location === location.id }") Current location.
+      h2.red(if="{ state.active_career.location === location.id }") Current location.
 
     img(src="/static/{ get_image_name() }.png")
 
@@ -45,30 +45,15 @@ location-details
     this.location_index = 0;
 
     this.on('before-mount', () => {
-      this.update_career();
       this.location = Object.values(this.state.locations)[this.location_index];
     });
-
-    this.on('update', () => {
-      this.update_career();
-    });
-
-    this.update_career = () => {
-      this.active_career_id = this.state.active_career_id;
-      for (let career of this.state.careers) {
-        if (career.id === this.active_career_id) {
-          this.active_career = career
-          break;
-        }
-      }
-    };
 
     this.open_rent_modal = () => {
       this.refs.rent_modal.show();
     };
 
     this.rent = () => {
-      this.opts.store.update('career', this.active_career_id, {
+      this.opts.store.update('career', this.active_career.id, {
         location: this.location.id
       });
     };

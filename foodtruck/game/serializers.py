@@ -1,8 +1,9 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from .models import (
-  Career,
+  Day,
   Truck,
+  Career,
   Location,
   MenuItem,
   Resource,
@@ -120,10 +121,30 @@ class CareerResourceSerializer(serializers.HyperlinkedModelSerializer):
     )
 
 
+class DaySerializer(serializers.HyperlinkedModelSerializer):
+  career = serializers.PrimaryKeyRelatedField(queryset=Career.objects.all())
+  class Meta:
+    model = Day
+    depth = 5
+    fields = (
+      'url',
+      'id',
+      'career',
+      'created',
+      'headline',
+      'max_temp',
+      'min_temp',
+      'dawn_condition',
+      'noon_condition',
+      'dusk_condition'
+    )
+
+
 class CareerSerializer(serializers.HyperlinkedModelSerializer):
   career_resources = CareerResourceSerializer(many=True, read_only=True)
   career_menu_items = CareerMenuItemSerializer(many=True, read_only=True)
   career_equipment = CareerEquipmentSerializer(many=True, read_only=True)
+  days = DaySerializer(many=True, read_only=True)
   truck = serializers.PrimaryKeyRelatedField(queryset=Truck.objects.all(), required=False)
   location = serializers.PrimaryKeyRelatedField(queryset=Location.objects.all(), required=False)
   class Meta:
@@ -131,6 +152,7 @@ class CareerSerializer(serializers.HyperlinkedModelSerializer):
     depth = 5
     fields = (
       'url',
+      'days',
       'id',
       'name',
       'created',

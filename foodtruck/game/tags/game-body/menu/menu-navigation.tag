@@ -1,59 +1,55 @@
 menu-navigation
   button(
-    class="{ activated: active_section_name === 'careers' }"
+    class="{ activated: state.active_section_name === 'careers' }"
     onclick="{ activate_section }"
     value="careers"
   ) Careers
   button(
-    class="{ activated: active_section_name === 'menu-items' }"
-    disabled="{ !active_career_id }"
+    class="{ activated: state.active_section_name === 'menu-items' }"
+    disabled="{ !state.active_career }"
     onclick="{ activate_section }"
     value="menu-items"
   ) Menu
   button(
-    class="{ activated: active_section_name === 'resources' }"
-    disabled="{ !active_career_id }"
+    class="{ activated: state.active_section_name === 'resources' }"
+    disabled="{ !state.active_career }"
     onclick="{ activate_section }"
     value="resources"
   ) Supplies
   button(
-    class="{ activated: active_section_name === 'equipment' }"
-    disabled="{ !active_career_id }"
+    class="{ activated: state.active_section_name === 'equipment' }"
+    disabled="{ !state.active_career }"
     onclick="{ activate_section }"
     value="equipment"
   ) Equipment
   button(
-    class="{ activated: active_section_name === 'trucks' }"
-    disabled="{ !active_career_id }"
+    class="{ activated: state.active_section_name === 'trucks' }"
+    disabled="{ !state.active_career }"
     onclick="{ activate_section }"
     value="trucks"
   ) Trucks
   button(
-    class="{ activated: active_section_name === 'locations' }"
-    disabled="{ !active_career_id }"
+    class="{ activated: state.active_section_name === 'locations' }"
+    disabled="{ !state.active_career }"
     onclick="{ activate_section }"
     value="locations"
   ) Location
   button(
-    class="{ activated: active_section_name === 'employees' }"
-    disabled="{ !active_career_id }"
+    class="{ activated: state.active_section_name === 'employees' }"
+    disabled="{ !state.active_career }"
     onclick="{ activate_section }"
     value="employees"
   ) Staff
   button(
-    class="{ activated: active_section_name === 'sales' }"
-    disabled="{ !active_career_id }"
+    class="{ activated: state.active_section_name === 'sales' }"
+    disabled="{ !state.active_career }"
     onclick="{ activate_section }"
     value="sales"
   ) Sales
 
 
   script.
-
-    this.on('update', () => {
-      this.active_career_id = this.opts.store.state.active_career_id;
-      this.active_section_name = this.opts.store.state.active_section_name;
-    });
+    this.state = this.opts.store.state;
 
     this.activate_section = (ev) => {
       const section_name = ev.target.value;

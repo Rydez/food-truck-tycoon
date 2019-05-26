@@ -1,3 +1,5 @@
+from random import randint
+
 from django.db import models
 
 class Day(models.Model):
@@ -9,7 +11,12 @@ class Day(models.Model):
   ]
 
   created = models.DateTimeField(auto_now_add=True)
-  career = models.ForeignKey('Career', on_delete=models.SET_NULL, null=True)
+  career = models.ForeignKey(
+    'Career',
+    related_name='days',
+    on_delete=models.SET_NULL,
+    null=True
+  )
   headline = models.CharField(max_length=500)
   max_temp = models.SmallIntegerField()
   min_temp = models.SmallIntegerField()
@@ -25,5 +32,11 @@ class Day(models.Model):
     # Generate day
     is_new = self.id is None
     if is_new:
+      number_of_conditions = len(self.WEATHER_CONDITIONS) - 1
+      self.dawn_condition = self.WEATHER_CONDITIONS[randint(0, number_of_conditions)][0]
+      self.noon_condition = self.WEATHER_CONDITIONS[randint(0, number_of_conditions)][0]
+      self.dusk_condition = self.WEATHER_CONDITIONS[randint(0, number_of_conditions)][0]
+      self.min_temp = randint(30, 90)
+      self.max_temp = randint(self.min_temp, 100)
 
     super(Day, self).save(*args, **kwargs)

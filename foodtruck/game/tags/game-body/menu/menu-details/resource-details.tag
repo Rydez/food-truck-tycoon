@@ -8,7 +8,7 @@ resource-details
     | You're out of everything!
   table(if="{ !out_of_everything }")
     tbody
-      tr(if="{ quantity > 0 }" each="{ career_resources }")
+      tr(if="{ quantity > 0 }" each="{ state.active_career.career_resources }")
         td
           p { state.resources[resource].name }
         td
@@ -46,27 +46,18 @@ resource-details
     this.total = 0;
 
     this.on('before-mount', () => {
-      this.update_career_resources();
+      this.check_out_of_everything();
     });
 
     this.on('update', () => {
-      this.update_career_resources();
+      this.check_out_of_everything();
     });
 
-    this.update_career_resources = () => {
-      this.active_career_id = this.state.active_career_id;
-      for (let career of this.state.careers) {
-        if (career.id === this.active_career_id) {
-          this.active_career = career
-          this.career_resources = career.career_resources;
-          this.out_of_everything = true;
-          for (let career_resource of this.career_resources) {
-            if (career_resource.quantity > 0) {
-              this.out_of_everything = false;
-              break;
-            }
-          }
-
+    this.check_out_of_everything = () => {
+      this.out_of_everything = true;
+      for (let career_resource of this.state.active_career.career_resources) {
+        if (career_resource.quantity > 0) {
+          this.out_of_everything = false;
           break;
         }
       }
@@ -82,7 +73,7 @@ resource-details
         const field = fields[field_name];
         if (field.value !== '' && !isNaN(Number(field.value))) {
           const resource_id = Number(field_name.split('_')[1]);
-          const career_resource = this.career_resources.find((career_resource) => {
+          const career_resource = this.state.active_career.career_resources.find((career_resource) => {
             return career_resource.resource === resource_id
           });
 

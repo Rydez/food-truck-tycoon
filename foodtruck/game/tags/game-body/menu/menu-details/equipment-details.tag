@@ -4,11 +4,11 @@ equipment-details
   button(onclick="{ open_new_equipment_modal }") Buy Equipment
 
   h2 Equipment:
-  h1(if="{ career_equipment.length === 0 }")
+  h1(if="{ state.active_career.career_equipment.length === 0 }")
     | Your truck is empty!
-  table(if="{ career_equipment.length > 0 }")
+  table(if="{ state.active_career.career_equipment.length > 0 }")
     tbody
-      tr(each="{ career_equipment }")
+      tr(each="{ state.active_career.career_equipment }")
         td
           p { state.equipment[equipment].name }
         td
@@ -57,25 +57,6 @@ equipment-details
 
   script.
     this.state = this.opts.store.state;
-
-    this.on('before-mount', () => {
-      this.update_career_equipment();
-    });
-
-    this.on('update', () => {
-      this.update_career_equipment();
-    });
-
-    this.update_career_equipment = () => {
-      this.active_career_id = this.state.active_career_id;
-      for (let career of this.state.careers) {
-        if (career.id === this.active_career_id) {
-          this.active_career = career
-          this.career_equipment = career.career_equipment;
-          break;
-        }
-      }
-    };
 
     this.open_new_equipment_modal = () => {
       this.refs.new_equipment_modal.show();

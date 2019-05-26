@@ -98,14 +98,20 @@ const destroy = async (name, id) => {
 };
 
 const activate_career = (career_id) => {
-  state.active_career_id = Number(career_id);
+  for (let career of state.careers) {
+    if (career.id === Number(career_id)) {
+      state.active_career = career
+      break;
+    }
+  }
+
   state.active_section_name = 'menu-items';
   state.trigger('update');
 };
 
 const activate_section = (section_name) => {
   if (section_name === 'careers') {
-    state.active_career_id = null;
+    state.active_career = null;
   }
 
   state.active_section_name = section_name;

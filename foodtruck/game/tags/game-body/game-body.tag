@@ -2,7 +2,7 @@ game-body
   game-header(store="{ opts.store }")
   #menu-and-day
     menu(store="{ opts.store }")
-    day
+    day(store="{ opts.store }")
 
   script.
     import './game-header.tag';
