@@ -3,9 +3,9 @@ import 'pixi';
 import * as store from '../store';
 
 let pixi_app;
-
+let world_el;
 const initialize = () => {
-  const [world_el] = document.getElementsByTagName('world');
+  [world_el] = document.getElementsByTagName('world');
   pixi_app = new PIXI.Application({
     autoResize: true,
     resolution: 2,
@@ -48,14 +48,21 @@ const load_texture = async (texture_path) => {
   });
 };
 
+let location_sprite;
 const set_location = async () => {
+  if (location_sprite) {
+    return;
+  }
+
   const location = store.state.active_career.location;
   const location_name = store.state.locations[location].name;
   const location_slug = location_name.toLowerCase().replace(/ /g, '-');
 
   const texture = await load_texture(`/static/${ location_slug }.png`);
-  const sprite = new PIXI.Sprite(texture);
-  pixi_app.stage.addChild(sprite);
+  location_sprite = new PIXI.Sprite(texture);
+  location_sprite.width = world_el.clientWidth;
+  location_sprite.height = location_sprite.width * (world_el.clientHeight / world_el.clientWidth);
+  pixi_app.stage.addChild(location_sprite);
 };
 
 const set_truck = () => {
