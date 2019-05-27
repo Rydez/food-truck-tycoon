@@ -1,17 +1,27 @@
 json('../../js/colors.json')
 
 game-body
-  margin: 20px
+  padding: 20px
   display: flex
   flex-flow: column
+  position: absolute
+  top: 90px
+  bottom: 0
+  right: 0
+  left: 0
 
   #menu-and-day
+    padding: 20px
     display: flex
     flex-direction: row
-    height: 100%
+    position: absolute
+    top: 60px
+    bottom: 0
+    right: 0
+    left: 0
     day, menu
       padding: 10px
-      flex: 1 1 0
+      width: 50%
       background-color: colors-lightest_green
       border-radius: 10px
       box-shadow: rgba(0, 0, 0, 0.4) 0 0 30px inset;

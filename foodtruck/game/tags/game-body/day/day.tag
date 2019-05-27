@@ -5,6 +5,17 @@ day
   world
 
   script.
-    import '../../../js/world';
+    import * as world from '../../../js/world';
 
     this.state = this.opts.store.state;
+
+    this.on('mount', () => {
+      world.initialize();
+    });
+
+    this.on('update', () => {
+      if (this.state.active_career) {
+        world.set_location();
+        world.set_truck();
+      }
+    });
