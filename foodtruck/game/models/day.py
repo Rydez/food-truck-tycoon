@@ -38,5 +38,6 @@ class Day(models.Model):
       self.dusk_condition = self.WEATHER_CONDITIONS[randint(0, number_of_conditions)][0]
       self.min_temp = randint(30, 90)
       self.max_temp = randint(self.min_temp, 100)
+      self.headline = 'Some News Headline Here'
 
     super(Day, self).save(*args, **kwargs)

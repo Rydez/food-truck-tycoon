@@ -1,9 +1,24 @@
+json('../../../js/colors.json');
+
 day
   padding: 10px
   position: relative
+  .day-info, .weather
+    display: flex
+    :first-child
+      margin-right: auto
+  p
+    margin: 0
+    &.headline
+      text-decoration: underline
   world
+    display: flex
+    align-items: center
+    justify-content: center
     position: absolute
     top: 70px
     bottom: 20px
     right: 20px
     left: 20px
+    canvas
+      border: 2px solid colors-dark_green

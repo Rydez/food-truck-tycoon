@@ -39,7 +39,8 @@ const create = async (name, data) => {
 
     console.log(await response.json());
 
-    retrieve('careers');
+    await retrieve('careers');
+    update_active_career();
   }
   catch (err) {
     console.log('Failed', err);
@@ -71,7 +72,8 @@ const update = async (name, id, data) => {
 
     console.log(result)
 
-    retrieve('careers');
+    await retrieve('careers');
+    update_active_career();
   }
   catch (err) {
     console.log('Failed', err);
@@ -90,10 +92,23 @@ const destroy = async (name, id) => {
       }
     });
 
-    retrieve('careers');
+    await retrieve('careers');
+    update_active_career();
   }
   catch (err) {
     console.log('Failed', err);
+  }
+};
+
+const update_active_career = () => {
+  if (state.active_career) {
+    for (let career of state.careers) {
+      if (career.id === state.active_career.id) {
+        state.active_career = career
+        state.trigger('update');
+        break;
+      }
+    }
   }
 };
 

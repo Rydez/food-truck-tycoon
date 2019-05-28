@@ -8,7 +8,7 @@ truck-details
         class="{ red: state.active_career.cash < truck.cost }"
       ) ${ truck.cost }
       button(
-        onclick="{  }"
+        onclick="{ open_modal }"
         disabled="{ \
           state.active_career.truck === truck.id || \
           state.active_career.cash < truck.cost \
@@ -35,7 +35,7 @@ truck-details
   )
     .title Upgrade Truck
     .content
-      | Are you sure you want pay ${} to upgrade your truck?
+      | Are you sure you want pay ${ parent.cost } to upgrade your truck?
       .buttons
         button.cancel Cancel
         button.confirm Upgrade
@@ -46,7 +46,7 @@ truck-details
   )
     .title Downgrade Truck
     .content
-      | Are you sure you want to downgrade your truck and receive ${}?
+      | Are you sure you want to downgrade your truck and receive ${ -parent.cost }?
       .buttons
         button.cancel Cancel
         button.confirm Downgrade
@@ -60,6 +60,16 @@ truck-details
       this.truck = Object.values(this.state.trucks)[this.truck_index];
     });
 
+    this.open_modal = () => {
+      this.cost = this.truck.cost - this.state.trucks[this.state.active_career.truck].cost;
+      if (this.cost > 0) {
+        this.open_upgrade_modal();
+      }
+      else {
+        this.open_downgrade_modal();
+      }
+    };
+
     this.open_upgrade_modal = () => {
       this.refs.upgrade_modal.show();
     };
@@ -69,7 +79,7 @@ truck-details
     };
 
     this.buy = () => {
-      this.opts.store.update('career', this.active_career.id, {
+      this.opts.store.update('careers', this.state.active_career.id, {
         truck: this.truck.id
       });
     };

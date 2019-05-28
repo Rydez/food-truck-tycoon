@@ -27,17 +27,18 @@ class Career(models.Model):
   def save(self, *args, **kwargs):
     is_new = self.id is None
 
-
+    # Subtract cost of location or truck
     if not is_new:
       original = Career.objects.get(id=self.id)
-      if self.truck and original.truck != self.truck:
-        truck = Truck.objects.get(id=self.truck)
-        pass
+      if self.truck and original.truck.id != self.truck.id:
+        self.cash = self.cash or original.cash
+        cost = self.truck.cost - original.truck.cost
+        self.cash = self.cash - cost
 
-      if self.location and original.location != self.location:
-        location = Location.objects.get(id=self.location)
-        pass
-
+      if self.location and original.location.id != self.location.id:
+        location = Location.objects.get(id=self.location.id)
+        self.cash = self.cash or original.cash
+        self.cash = self.cash - location.cost
 
     # Call super first, so the id exists
     super(Career, self).save(*args, **kwargs)

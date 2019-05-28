@@ -8,6 +8,7 @@ location-details
         class="{ red: state.active_career.cash < location.cost }"
       ) ${ location.cost }
       button(
+        onclick="{ open_rent_modal }"
         disabled="{ \
           state.active_career.location === location.id || \
           state.active_career.cash < location.cost \
@@ -34,7 +35,7 @@ location-details
   )
     .title Rent Location
     .content
-      | Are you sure you want pay ${} to rent this location?
+      | Are you sure you want pay ${ parent.location.cost } to rent this location?
       .buttons
         button.cancel Cancel
         button.confirm Rent
@@ -53,7 +54,7 @@ location-details
     };
 
     this.rent = () => {
-      this.opts.store.update('career', this.active_career.id, {
+      this.opts.store.update('careers', this.state.active_career.id, {
         location: this.location.id
       });
     };

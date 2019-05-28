@@ -46,6 +46,7 @@ WEBPACK_LOADER = {
 
 INSTALLED_APPS = [
     'game',
+    'django_mysql',
     'rest_framework',
     'webpack_loader',
     'raven.contrib.django.raven_compat',
@@ -105,6 +106,10 @@ DATABASES = {
         'PASSWORD': config['DB_PASSWORD'],
         'HOST': config['DB_HOST'],
         'PORT': config['DB_PORT'],
+        'OPTIONS': {
+            # Tell MySQLdb to connect with 'utf8mb4' character set
+            'charset': 'utf8mb4',
+        }
     }
 }
 

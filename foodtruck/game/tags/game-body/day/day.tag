@@ -1,6 +1,12 @@
 day
   p(if="{ !state.active_career }") No career to display.
-  p(if="{ state.active_career }") Day { state.active_career.days.length }
+  .day-info(if="{ state.active_career }")
+    p Day { current_day }
+    p.headline { day.headline }
+  .weather(if="{ state.active_career }")
+    p { day.min_temp }F - { day.max_temp }F
+    p Dawn { day.dawn_condition }, Noon { day.noon_condition }, Dusk { day.dusk_condition }
+
 
   world
 
@@ -17,5 +23,8 @@ day
       if (this.state.active_career) {
         world.set_location();
         world.set_truck();
+
+        this.current_day = this.state.active_career.days.length;
+        this.day = this.state.active_career.days[this.current_day - 1];
       }
     });

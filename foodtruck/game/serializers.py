@@ -25,7 +25,7 @@ class PlayerSerializer(serializers.HyperlinkedModelSerializer):
 class LocationSerializer(serializers.HyperlinkedModelSerializer):
   class Meta:
     model = Location
-    fields = ('url', 'id', 'name', 'cost')
+    fields = ('url', 'id', 'name', 'cost', 'truck_position')
 
 
 class TruckSerializer(serializers.HyperlinkedModelSerializer):
