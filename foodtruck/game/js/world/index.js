@@ -54,8 +54,21 @@ const load_texture = async (texture_path) => {
   });
 };
 
-let location_sprite;
+let truck_sprite;
 let location_id;
+
+const position_truck = () => {
+  if (truck_sprite) {
+    const truck_position = store.state.locations[location_id].truck_position;
+    truck_sprite.x = Math.round(truck_position.x * location_sprite.width);
+    truck_sprite.y = Math.round(truck_position.y * location_sprite.height);
+    if (truck_position.direction === 'right') {
+      truck_sprite.scale.x *= -1;
+    }
+  }
+};
+
+let location_sprite;
 const set_location = async () => {
   if (location_id === store.state.active_career.location) {
     return;
@@ -74,9 +87,10 @@ const set_location = async () => {
   location_sprite.width = length;
   location_sprite.height = length;
   pixi_app.stage.addChildAt(location_sprite, 0);
+
+  position_truck();
 };
 
-let truck_sprite;
 let truck_id;
 const set_truck = async () => {
   if (truck_id === store.state.active_career.truck) {
@@ -96,14 +110,7 @@ const set_truck = async () => {
   truck_sprite.anchor.x = 0.5;
   truck_sprite.anchor.y = 0.5;
 
-  const location = store.state.active_career.location;
-  const truck_position = store.state.locations[location].truck_position;
-
-  truck_sprite.x = truck_position.x * location_sprite.width;
-  truck_sprite.y = truck_position.y * location_sprite.height;
-  if (truck_position.direction === 'right') {
-    truck_sprite.scale.x *= -1;
-  }
+  position_truck();
 
   pixi_app.stage.addChild(truck_sprite);
 };

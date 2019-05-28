@@ -7,8 +7,14 @@ day
     p { day.min_temp }F - { day.max_temp }F
     p Dawn { day.dawn_condition }, Noon { day.noon_condition }, Dusk { day.dusk_condition }
 
-
   world
+
+  .day-controls(if="{ state.active_career }")
+    button(
+      disabled="{ state.active_career.career_menu_items.length === 0 }"
+    ) Start Day
+    p.red(if="{ state.active_career.career_menu_items.length === 0 }")
+      | Can't start the day without menu items!
 
   script.
     import * as world from '../../../js/world';

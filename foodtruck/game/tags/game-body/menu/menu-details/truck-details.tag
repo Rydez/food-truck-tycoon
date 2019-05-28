@@ -5,13 +5,13 @@ truck-details
     h2 { truck.name } Capacity: { truck.capacity }lbs
     .buy-row
       h2(
-        class="{ red: state.active_career.cash < truck.cost }"
-      ) ${ truck.cost }
+        class="{ red: state.active_career.cash < cost }"
+      ) ${ truck.cost } (${ cost })
       button(
         onclick="{ open_modal }"
         disabled="{ \
           state.active_career.truck === truck.id || \
-          state.active_career.cash < truck.cost \
+          state.active_career.cash < cost \
         }"
       ) Buy
       h2.red(if="{ state.active_career.truck === truck.id }") You own this truck.
@@ -58,10 +58,10 @@ truck-details
 
     this.on('before-mount', () => {
       this.truck = Object.values(this.state.trucks)[this.truck_index];
+      this.cost = this.truck.cost - this.state.trucks[this.state.active_career.truck].cost;
     });
 
     this.open_modal = () => {
-      this.cost = this.truck.cost - this.state.trucks[this.state.active_career.truck].cost;
       if (this.cost > 0) {
         this.open_upgrade_modal();
       }
@@ -91,11 +91,13 @@ truck-details
     this.last_truck = () => {
       this.truck_index -= 1;
       this.truck = Object.values(this.state.trucks)[this.truck_index];
+      this.cost = this.truck.cost - this.state.trucks[this.state.active_career.truck].cost;
       this.update();
     }
 
     this.next_truck = () => {
       this.truck_index += 1;
       this.truck = Object.values(this.state.trucks)[this.truck_index];
+      this.cost = this.truck.cost - this.state.trucks[this.state.active_career.truck].cost;
       this.update();
     }

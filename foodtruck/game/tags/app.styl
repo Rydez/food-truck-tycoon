@@ -30,6 +30,7 @@ p
   color: #ffee35
 
 button
+  outline: none
   padding: 6px 10px
   position: relative
   border: none
@@ -42,6 +43,8 @@ button
   box-shadow: 2px 2px 8px rgba(black, 0.4)
   border-radius: 8px
   cursor: pointer
+  &::-moz-focus-inner
+    border: 0
   &:after
     content: ""
     position: absolute
