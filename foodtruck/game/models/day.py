@@ -2,6 +2,8 @@ from random import randint
 
 from django.db import models
 
+from ..lib.simulator import simulate_day
+
 class Day(models.Model):
   WEATHER_CONDITIONS = [
     ('sunny', 'sunny'),
@@ -39,5 +41,11 @@ class Day(models.Model):
       self.min_temp = randint(30, 90)
       self.max_temp = randint(self.min_temp, 100)
       self.headline = 'Some News Headline Here'
+
+    print(self.career)
+    print(self.career.days)
+    if len(self.career.days) != 0:
+      simulate_day(self.career.id)
+
 
     super(Day, self).save(*args, **kwargs)

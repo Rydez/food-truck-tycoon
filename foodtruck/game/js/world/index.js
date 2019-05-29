@@ -112,7 +112,7 @@ const set_truck = async () => {
 
   position_truck();
 
-  pixi_app.stage.addChild(truck_sprite);
+  pixi_app.stage.addChildAt(truck_sprite, 1);
 };
 
 export {

@@ -11,9 +11,10 @@ day
 
   .day-controls(if="{ state.active_career }")
     button(
+      onclick="{ start_day }"
       disabled="{ state.active_career.career_menu_items.length === 0 }"
     ) Start Day
-    p.red(if="{ state.active_career.career_menu_items.length === 0 }")
+    h2.red(if="{ state.active_career.career_menu_items.length === 0 }")
       | Can't start the day without menu items!
 
   script.
@@ -34,3 +35,9 @@ day
         this.day = this.state.active_career.days[this.current_day - 1];
       }
     });
+
+    this.start_day = () => {
+      this.opts.store.create('days', {
+        career: this.state.active_career.id
+      });
+    };

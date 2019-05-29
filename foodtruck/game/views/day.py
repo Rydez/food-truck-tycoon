@@ -1,5 +1,5 @@
 
-from rest_framework import viewsets, permissions, filters
+from rest_framework import viewsets
 
 from ..serializers import DaySerializer
 from ..models import Day
