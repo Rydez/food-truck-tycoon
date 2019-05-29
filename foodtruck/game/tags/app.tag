@@ -21,11 +21,15 @@ app
 
     this.on('mount', async () => {
       store.state.on('update', this.update);
-      await store.retrieve('careers');
+
+      if (django.user) {
+        await store.retrieve('careers');
+        store.activate_section('careers');
+      }
+
       await store.retrieve('menu_items');
       await store.retrieve('equipment');
       await store.retrieve('resources');
       await store.retrieve('trucks');
       await store.retrieve('locations');
-      store.activate_section('careers');
     });

@@ -29,6 +29,20 @@ p
 .red
   color: #ffee35
 
+input[type="text"], input[type="password"]
+  position: relative
+  font-size: 120%
+  padding: 10px
+  color: white
+  background-color: rgba(255, 255, 255, 0)
+  box-shadow: 0 0 50px rgba(black, 0.6) inset
+  border: none
+  &:focus
+    outline: 0
+    box-shadow: 0 0 20px rgba(black, 0.4) inset
+  &:-webkit-autofill
+    box-shadow: none
+
 button
   outline: none
   padding: 6px 10px

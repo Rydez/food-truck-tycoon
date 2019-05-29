@@ -17,6 +17,13 @@ header
     padding: 5px
     border: 2px solid colors-cream
 
+  .form-buttons
+    display: flex
+
   form
-    margin-bottom: 0
-    margin-right: 20px
+    label
+      display: block
+      &:not(:last-of-type)
+        margin-bottom: 15px
+      input
+        display: block
