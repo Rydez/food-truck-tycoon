@@ -19,12 +19,24 @@ class Day(models.Model):
     on_delete=models.SET_NULL,
     null=True
   )
-  headline = models.CharField(max_length=500)
-  max_temp = models.SmallIntegerField()
-  min_temp = models.SmallIntegerField()
-  dawn_condition = models.CharField(max_length=50, choices=WEATHER_CONDITIONS)
-  noon_condition = models.CharField(max_length=50, choices=WEATHER_CONDITIONS)
-  dusk_condition = models.CharField(max_length=50, choices=WEATHER_CONDITIONS)
+  headline = models.CharField(max_length=500, blank=True)
+  max_temp = models.SmallIntegerField(blank=True)
+  min_temp = models.SmallIntegerField(blank=True)
+  dawn_condition = models.CharField(
+    max_length=50,
+    choices=WEATHER_CONDITIONS,
+    blank=True
+  )
+  noon_condition = models.CharField(
+    max_length=50,
+    choices=WEATHER_CONDITIONS,
+    blank=True
+  )
+  dusk_condition = models.CharField(
+    max_length=50,
+    choices=WEATHER_CONDITIONS,
+    blank=True
+  )
 
   class Meta:
     ordering = ('created',)
@@ -42,10 +54,7 @@ class Day(models.Model):
       self.max_temp = randint(self.min_temp, 100)
       self.headline = 'Some News Headline Here'
 
-    print(self.career)
-    print(self.career.days)
-    if len(self.career.days) != 0:
-      simulate_day(self.career.id)
-
+    if len(self.career.days.all()) != 0:
+      simulate_day(self.career)
 
     super(Day, self).save(*args, **kwargs)

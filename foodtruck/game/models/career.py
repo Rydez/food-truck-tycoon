@@ -20,6 +20,7 @@ class Career(models.Model):
   resources = models.ManyToManyField(Resource, through='CareerResource')
   menu_items = models.ManyToManyField(MenuItem, through='CareerMenuItem')
   equipment = models.ManyToManyField(Equipment, through='CareerEquipment')
+  rating = models.DecimalField(max_digits=2, decimal_places=1, default=2.5)
 
   class Meta:
     ordering = ('created',)

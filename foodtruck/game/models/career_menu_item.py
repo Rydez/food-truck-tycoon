@@ -9,6 +9,7 @@ class CareerMenuItem(models.Model):
     on_delete=models.CASCADE
   )
   menu_item = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
+  price = models.DecimalField(max_digits=8, decimal_places=2)
   created = models.DateTimeField(auto_now_add=True)
 
   class Meta:

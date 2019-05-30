@@ -68,7 +68,7 @@ equipment-details
         if (checkboxes[checkbox_name].checked) {
           this.opts.store.create('career_equipment', {
             equipment: checkboxes[checkbox_name].value,
-            career: this.active_career.id
+            career: this.state.active_career.id
           });
 
           checkboxes[checkbox_name].checked = false;

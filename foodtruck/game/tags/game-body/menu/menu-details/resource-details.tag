@@ -79,7 +79,7 @@ resource-details
 
           this.opts.store.update('career_resources', career_resource.id, {
             resource: resource_id,
-            career: this.active_career.id,
+            career: this.state.active_career.id,
             quantity: career_resource.quantity + Number(field.value)
           });
 
@@ -101,7 +101,7 @@ resource-details
       }
 
       this.over_spent = false;
-      if (this.total > this.active_career.cash) {
+      if (this.total > this.state.active_career.cash) {
         this.over_spent = true;
       }
     };

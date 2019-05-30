@@ -88,7 +88,7 @@ menu-item-details
         if (checkboxes[checkbox_name].checked) {
           this.opts.store.create('career_menu_items', {
             menu_item: checkboxes[checkbox_name].value,
-            career: this.active_career.id
+            career: this.state.active_career.id
           });
 
           checkboxes[checkbox_name].checked = false;
@@ -106,11 +106,11 @@ menu-item-details
     };
 
     this.has_equipment = (equipment) => {
-      if (!this.active_career) {
+      if (!this.state.active_career) {
         return false;
       }
 
-      for (let career_equipment of this.active_career.career_equipment) {
+      for (let career_equipment of this.state.active_career.career_equipment) {
         if (career_equipment.equipment === equipment.id) {
           return true;
         }
@@ -120,11 +120,11 @@ menu-item-details
     };
 
     this.has_all_equipment = (menu_item) => {
-      if (!this.active_career) {
+      if (!this.state.active_career) {
         return false;
       }
 
-      const career_equipment = this.active_career.career_equipment;
+      const career_equipment = this.state.active_career.career_equipment;
       const career_equipment_ids = career_equipment.map(e => e.equipment);
 
       for (let required_equipment of menu_item.equipment) {

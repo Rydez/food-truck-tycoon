@@ -1,7 +1,12 @@
-Extras:
+Features:
+ - Instead of headlines, just have some of the short and impactful
+   Reddit comments. Maybe put these in a News tab with the weather.
+ - Have a rating system, with stars. This could be increased or decreased
+   by reviews. Could factor in to getting people to get into line.
  - Maybe add challenges
  - Maybe use google trends for what foods are popular
  - Maybe use Dow Jones for price preferences
+
 
 - Improvement Equipment
   + Warmer
@@ -30,14 +35,3 @@ How the models will look:
 - career_advertisements
   + career_id
   + advertisement_id
-
-- days
-  + headline
-  + good_location_id
-  + bad_location_id
-  + max_temp
-  + min_temp
-  + dawn_condition (sunny, cloudy, rainy, stormy)
-  + noon_condition (sunny, cloudy, rainy, stormy)
-  + dusk_condition (sunny, cloudy, rainy, stormy)
-
