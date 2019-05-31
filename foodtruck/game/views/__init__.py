@@ -5,6 +5,7 @@ from .player import *
 from .career import *
 from .location import *
 from .resource import *
+from .headline import *
 from .equipment import *
 from .menu_item import *
 from .career_resource import *

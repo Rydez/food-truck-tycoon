@@ -6,6 +6,7 @@ class Location(Model):
   cost = models.DecimalField(max_digits=8, decimal_places=2, default=0)
   created = models.DateTimeField(auto_now_add=True)
   popularity = models.DecimalField(max_digits=8, decimal_places=2, default=0)
+  keywords = JSONField()
   truck_position = JSONField()
 
   class Meta:

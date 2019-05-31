@@ -2,6 +2,7 @@ from .player import Player
 from .career import Career
 from .day import Day
 from .truck import Truck
+from .headlines import Headline
 from .menu_item import MenuItem
 from .equipment import Equipment
 from .resource import Resource

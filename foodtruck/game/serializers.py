@@ -7,6 +7,7 @@ from .models import (
   Location,
   MenuItem,
   Resource,
+  Headline,
   Equipment,
   CareerResource,
   CareerMenuItem,
@@ -25,7 +26,30 @@ class PlayerSerializer(serializers.HyperlinkedModelSerializer):
 class LocationSerializer(serializers.HyperlinkedModelSerializer):
   class Meta:
     model = Location
-    fields = ('url', 'id', 'name', 'cost', 'truck_position')
+    fields = (
+      'url',
+      'id',
+      'name',
+      'cost',
+      'popularity',
+      'sentiment',
+      'keywords',
+      'truck_position'
+    )
+
+
+class HeadlineSerializer(serializers.HyperlinkedModelSerializer):
+  class Meta:
+    model = Headline
+    fields = (
+      'url',
+      'id',
+      'title',
+      'polarity',
+      'menu_item',
+      'location',
+      'created'
+    )
 
 
 class TruckSerializer(serializers.HyperlinkedModelSerializer):
@@ -131,7 +155,6 @@ class DaySerializer(serializers.HyperlinkedModelSerializer):
       'id',
       'career',
       'created',
-      'headline',
       'max_temp',
       'min_temp',
       'dawn_condition',

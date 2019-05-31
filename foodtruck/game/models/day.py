@@ -19,7 +19,6 @@ class Day(models.Model):
     on_delete=models.SET_NULL,
     null=True
   )
-  headline = models.CharField(max_length=500, blank=True)
   max_temp = models.SmallIntegerField(blank=True)
   min_temp = models.SmallIntegerField(blank=True)
   dawn_condition = models.CharField(
@@ -52,7 +51,6 @@ class Day(models.Model):
       self.dusk_condition = self.WEATHER_CONDITIONS[randint(0, number_of_conditions)][0]
       self.min_temp = randint(30, 90)
       self.max_temp = randint(self.min_temp, 100)
-      self.headline = 'Some News Headline Here'
 
     if len(self.career.days.all()) != 0:
       simulate_day(self.career)

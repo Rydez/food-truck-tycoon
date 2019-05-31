@@ -1,6 +1,5 @@
 Features:
- - Instead of headlines, just have some of the short and impactful
-   Reddit comments. Maybe put these in a News tab with the weather.
+ - Instead of parsing reddit, just create headlines manually.
  - Have a rating system, with stars. This could be increased or decreased
    by reviews. Could factor in to getting people to get into line.
  - Maybe add challenges

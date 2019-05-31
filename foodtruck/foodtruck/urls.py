@@ -21,6 +21,7 @@ from game.views import (
     TruckViewSet,
     PlayerViewSet,
     CareerViewSet,
+    HeadlineViewSet,
     MenuItemViewSet,
     ResourceViewSet,
     LocationViewSet,
@@ -37,6 +38,7 @@ router.register(r'days', DayViewSet)
 router.register(r'trucks', TruckViewSet)
 router.register(r'careers', CareerViewSet)
 router.register(r'players', PlayerViewSet)
+router.register(r'headlines', HeadlineViewSet)
 router.register(r'resources', ResourceViewSet)
 router.register(r'equipment', EquipmentViewSet)
 router.register(r'locations', LocationViewSet)
