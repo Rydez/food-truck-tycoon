@@ -10,3 +10,8 @@ class DayViewSet(viewsets.ModelViewSet):
   filter_backends = (IsAdminOrCareerOwnerFilter,)
   queryset = Day.objects.all()
   serializer_class = DaySerializer
+
+  # def get_serializer_class(self):
+  #   if self.request.user.is_staff:
+  #       return AdminDaySerializer
+  #   return DaySerializer
