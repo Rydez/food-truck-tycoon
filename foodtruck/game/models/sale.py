@@ -26,7 +26,7 @@ class Sale(models.Model):
   result = models.CharField(max_length=50, choices=RESULTS)
   review = models.CharField(max_length=50, choices=REVIEWS, null=True)
   minute_of_day = models.PositiveSmallIntegerField()
-  review_polarity = models.DecimalField(max_digits=3, decimal_places=2)
+  rating = models.DecimalField(max_digits=3, decimal_places=2)
   created = models.DateTimeField(auto_now_add=True)
 
   class Meta:

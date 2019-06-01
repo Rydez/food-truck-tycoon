@@ -29,6 +29,7 @@
 from random import randint, random
 from ..models.headline import Headline
 from ..models.location import Location
+from ..models.menu_item import MenuItem
 
 CONDITION_PROBABILITIES = {
   'sunny': 0.15,
@@ -40,8 +41,9 @@ CONDITION_PROBABILITIES = {
 
 def simulate_day(career):
   day = career.days.latest('created')
-  menu_items = career.menu_items.all()
-  resources = career.resources.all()
+  career_menu_items = career.menu_items.all()
+  all_menu_items = MenuItem.objects.all()
+  career_resources = career.resources.all()
   headlines = Headline.objects.all().order_by('created')
   location = Location.objects.get(id=career.location.id)
 
@@ -87,23 +89,32 @@ def simulate_day(career):
     in_line_probability = 1
 
   # Menu item headlines
-  menu_item_probabilities = {}
-  for menu_item in menu_items:
+  menu_item_probabilities_dict = {}
+  for menu_item in all_menu_items:
     for headline in recent_headlines:
       if headline.menu_item.id == menu_item.id:
-        if menu_item.name in menu_item_probabilities
-          menu_item_probabilities[menu_item.name] += headline.polarity
+        if menu_item.name in menu_item_probabilities_dict
+          menu_item_probabilities_dict[menu_item.name] += headline.polarity
         else:
-          menu_item_probabilities[menu_item.name] = headline.polarity
+          menu_item_probabilities_dict[menu_item.name] = 0.5 + headline.polarity
 
-# price
-# menu_item
-# day
-# result
-# review
-# review_polarity
-  MIN_WAIT_TIME = 5
+  menu_item_probabilities = []
+  for name, probability in menu_item_probabilities_dict.items():
+    menu_item_probabilities.append({
+      'name': name,
+      'probability': probability
+    })
+
+  career_menu_items_by_name = {}
+  for menu_item in career_menu_items:
+    career_menu_items[menu_item['name']] = menu_item
+
+  menu_item_probabilities = sorted(menu_item_probabilities, key=lambda i: i['probability'])
+
+  MIN_WAIT_TIME = 2
   MAX_WAIT_TIME = 10
+
+  IDEAL_WAIT_TIME = MAX_WAIT_TIME - MIN_WAIT_TIME
 
   current_wait_time = 0
 
@@ -134,13 +145,47 @@ def simulate_day(career):
     if random() < in_line_probability:
       current_wait_time += randint(MIN_WAIT_TIME, MAX_WAIT_TIME)
 
+      # Customer will judge on 3 categories: taste, speed, and price.
+      # The customer's review will then be which ever one is most polarized.
 
-      # This will help determine how many people
-      # order a menu_item and whether or not they have a good review.
-      # For example, a customer is more likely to order a menu_item
-      # with higher sentiment. But, if a menu_item has a low sentiment
-      # compared to all other menu_items (on and off the truck),
-      # then likelihood of `distastful` increases.
+      # Rate the speed
+      speed_rating = round(5 - (current_wait_time / IDEAL_WAIT_TIME))
+
+      # Choose and rate the menu item
+      menu_item_random = random()
+      taste_rating = 0
+      for menu_item_probability in menu_item_probabilities:
+        name = menu_item_probability['name']
+        probability = menu_item_probability['probability']
+        menu_item = career_menu_items_by_name[name]
+
+        is_probable = menu_item_random < probability
+        is_on_menu = name in career_menu_items_by_name
+        has_resources = True
+        for menu_item_resource in menu_item.menu_item_resources.all():
+          for career_resource in career_resources:
+            is_resource = menu_item_resource.resource.id == career_resource.resource.id
+            not_enough = career_resource.quantity < menu_item_resource.quantity
+            if is_resource and not_enough:
+              has_resources = False
+
+
+        if is_probable and is_on_menu and has_resources:
+          sale['menu_item'] = menu_item.id
+          taste_rating = round(5 * probability, 1)
+
+      # Rate the price
+
+
+      # One star or less is a rejection
+      sale['result'] = 'rejected' if sale['rating'] < 1 else 'purchased'
+
+    # cheap
+    # expensive
+    # tastful
+    # distastful
+    # fast
+    # slow
 
     sales.append(sale)
 
