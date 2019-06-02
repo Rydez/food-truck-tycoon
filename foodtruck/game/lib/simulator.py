@@ -1,32 +1,33 @@
 
 
-  '''
-    FACTORS
+'''
+  FACTORS
 
-    location_popularity, max_temp, min_temp, dawn_condition, noon_condition,
-    dusk_condition - These will help determine how many potential
-    customers are generated.
+  location_popularity, max_temp, min_temp, dawn_condition, noon_condition,
+  dusk_condition - These will help determine how many potential
+  customers are generated.
 
-    employees (TODO) - This will help determine how long someone
-    waits in line.
+  employees (TODO) - This will help determine how long someone
+  waits in line.
 
-    location_sentiment - This will help determine how many people
-    get in line, and whether or not they have a good review.
+  location_sentiment - This will help determine how many people
+  get in line, and whether or not they have a good review.
 
-    menu_item_sentiment - This will help determine how many people
-    order a menu_item and whether or not they have a good review.
-    For example, a customer is more likely to order a menu_item
-    with higher sentiment. But, if a menu_item has a low sentiment
-    compared to all other menu_items (on and off the truck),
-    then likelihood of `distastful` increases.
+  menu_item_sentiment - This will help determine how many people
+  order a menu_item and whether or not they have a good review.
+  For example, a customer is more likely to order a menu_item
+  with higher sentiment. But, if a menu_item has a low sentiment
+  compared to all other menu_items (on and off the truck),
+  then likelihood of `distastful` increases.
 
-    rating, advertisement (TODO) - This will help determine how many customers actually
-    get in line.
+  rating, advertisement (TODO) - This will help determine how many customers actually
+  get in line.
 
-  '''
+'''
 
-
-from random import randint, random
+import numpy
+from random import randint, random, uniform
+from ..models.sale import Sale
 from ..models.headline import Headline
 from ..models.location import Location
 from ..models.menu_item import MenuItem
@@ -44,7 +45,7 @@ def simulate_day(career):
   career_menu_items = career.menu_items.all()
   all_menu_items = MenuItem.objects.all()
   career_resources = career.resources.all()
-  headlines = Headline.objects.all().order_by('created')
+  headlines = Headline.objects.all().order_by('-created')
   location = Location.objects.get(id=career.location.id)
 
   # Probability that someone will spawn
@@ -52,7 +53,7 @@ def simulate_day(career):
   MIN_PROBABILITY = 0.02
   MAX_PROBABILITY = 0.5
 
-  people_probability = randint(MIN_PROBABILITY, MAX_PROBABILITY)
+  people_probability = uniform(MIN_PROBABILITY, MAX_PROBABILITY)
 
   # Weather effect
   IDEAL_TEMP = 72
@@ -69,14 +70,14 @@ def simulate_day(career):
   people_probability -= round(TEMP_FACTOR * temp_difference)
 
   # Add people bonus for location popularity
-  people_probability += location.popularity
+  people_probability += float(location.popularity)
 
   # Probability that someone will get in line
   HEADLINE_COUNT = 7
 
   in_line_probability = 0.5
 
-  recent_headlines = headlines[-HEADLINE_COUNT:]
+  recent_headlines = headlines[:HEADLINE_COUNT]
 
   # Location headlines
   for headline in recent_headlines:
@@ -93,7 +94,7 @@ def simulate_day(career):
   for menu_item in all_menu_items:
     for headline in recent_headlines:
       if headline.menu_item.id == menu_item.id:
-        if menu_item.name in menu_item_probabilities_dict
+        if menu_item.name in menu_item_probabilities_dict:
           menu_item_probabilities_dict[menu_item.name] += headline.polarity
         else:
           menu_item_probabilities_dict[menu_item.name] = 0.5 + headline.polarity
@@ -107,7 +108,7 @@ def simulate_day(career):
 
   career_menu_items_by_name = {}
   for menu_item in career_menu_items:
-    career_menu_items[menu_item['name']] = menu_item
+    career_menu_items_by_name[menu_item.name] = menu_item
 
   menu_item_probabilities = sorted(menu_item_probabilities, key=lambda i: i['probability'])
 
@@ -128,11 +129,11 @@ def simulate_day(career):
 
     condition_probability = 0
     if minute < LAST_DAWN_MINUTE:
-      condition_probability = CONDITION_PROBABILITIES[day['dawn_condition']]
+      condition_probability = CONDITION_PROBABILITIES[day.dawn_condition]
     elif minute < LAST_NOON_MINUTE:
-      condition_probability = CONDITION_PROBABILITIES[day['noon_condition']]
+      condition_probability = CONDITION_PROBABILITIES[day.noon_condition]
     else:
-      condition_probability = CONDITION_PROBABILITIES[day['dusk_condition']]
+      condition_probability = CONDITION_PROBABILITIES[day.dusk_condition]
 
     if random() > people_probability + condition_probability:
       continue
@@ -152,44 +153,67 @@ def simulate_day(career):
       speed_rating = round(5 - (current_wait_time / IDEAL_WAIT_TIME))
 
       # Choose and rate the menu item
+      cost_of_resources = 0
       menu_item_random = random()
       taste_rating = 0
       for menu_item_probability in menu_item_probabilities:
+        cost_of_resources = 0
         name = menu_item_probability['name']
         probability = menu_item_probability['probability']
-        menu_item = career_menu_items_by_name[name]
+        career_menu_item = career_menu_items_by_name[name]
 
         is_probable = menu_item_random < probability
         is_on_menu = name in career_menu_items_by_name
         has_resources = True
-        for menu_item_resource in menu_item.menu_item_resources.all():
+        for menu_item_resource in career_menu_item.menu_item_resources.all():
+          cost_of_resources += menu_item_resource.resource.cost * menu_item_resource.quantity
           for career_resource in career_resources:
             is_resource = menu_item_resource.resource.id == career_resource.resource.id
             not_enough = career_resource.quantity < menu_item_resource.quantity
             if is_resource and not_enough:
               has_resources = False
 
-
         if is_probable and is_on_menu and has_resources:
-          sale['menu_item'] = menu_item.id
+          sale['menu_item'] = career_menu_item.id
+          sale['price'] = career_menu_item.price
           taste_rating = round(5 * probability, 1)
 
       # Rate the price
+      reasonable_profit_factor = 3
+      ideal_price = reasonable_profit_factor * cost_of_resources
+      price_rating = round(2.5 * (ideal_price / career_menu_item.price), 1)
+      if price_rating > 5:
+        price_rating = 5        
 
+      speed_polarity = abs(speed_rating - 2.5)
+      taste_polarity = abs(taste_rating - 2.5)
+      price_polarity = abs(price_rating - 2.5)
+
+      # Normalize
+      polarity_sum = speed_polarity + taste_polarity + price_polarity
+      speed_probability = speed_polarity / polarity_sum
+      taste_probability = taste_polarity / polarity_sum
+      price_probability = price_polarity / polarity_sum
+
+      review_type = numpy.random.choice(
+        ['speed', 'taste', 'price'], 
+        p=[speed_probability, taste_probability, price_probability]
+      )
+
+      if review_type == 'speed':
+        sale['rating'] = speed_rating
+        sale['review'] = 'fast' if speed_rating > 2.5 else 'slow'
+      elif review_type == 'taste':
+        sale['rating'] = taste_rating
+        sale['review'] = 'tasteful' if taste_rating > 2.5 else 'distasteful'
+      elif review_type == 'price':
+        sale['rating'] = price_rating
+        sale['review'] = 'cheap' if price_rating > 2.5 else 'expensive'
 
       # One star or less is a rejection
       sale['result'] = 'rejected' if sale['rating'] < 1 else 'purchased'
 
-    # cheap
-    # expensive
-    # tastful
-    # distastful
-    # fast
-    # slow
-
     sales.append(sale)
 
-
-
-  print('run simulator')
-
+  for sale in sales:
+    Sale(**sale).save()

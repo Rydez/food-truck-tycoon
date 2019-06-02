@@ -12,6 +12,8 @@ menu-item-details
         td
           p { state.menu_items[menu_item].name }
         td
+          p ${ price.toFixed(2) }
+        td
           ul
             li(each="{ menu_item_resource in state.menu_items[menu_item].menu_item_resources }")
               | { menu_item_resource.quantity }

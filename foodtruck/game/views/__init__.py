@@ -1,5 +1,6 @@
 
 from .day import *
+from .sale import *
 from .truck import *
 from .player import *
 from .career import *

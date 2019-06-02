@@ -6,6 +6,9 @@ from .permissions import IsAdminOrCareerOwner, IsAdminOrCareerOwnerFilter
 
 class HasRequiredCareerEquipment(permissions.BasePermission):
   def has_permission(self, request, view):
+    if request.method != 'PUT' and request.method != 'POST':
+      return True
+
     if 'career' not in request.data or 'menu_item' not in request.data:
       return False
 

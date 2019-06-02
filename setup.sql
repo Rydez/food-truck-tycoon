@@ -18,17 +18,17 @@ VALUES(3, 'Third Truck', 100000.00, 10000.00, '2019-05-06 13:04:18.310');
 -- Locations
 TRUNCATE foodtruck.game_location;
 INSERT INTO foodtruck.game_location
-(id, name, cost, created)
-VALUES(1, 'Neighborhood', 0.00, '2019-05-06 13:04:18.310');
+(id, name, cost, created, popularity, truck_position, keywords)
+VALUES(1, 'Neighborhood', 0.00, '2019-05-06 13:04:18.310', 0.1, "{}", "[]");
 INSERT INTO foodtruck.game_location
-(id, name, cost, created)
-VALUES(2, 'Big Company', 500.00, '2019-05-06 13:04:18.310');
+(id, name, cost, created, popularity, truck_position, keywords)
+VALUES(2, 'Big Company', 500.00, '2019-05-06 13:04:18.310', 0.15, "{}", "[]");
 INSERT INTO foodtruck.game_location
-(id, name, cost, created)
-VALUES(3, 'Beach', 1000.00, '2019-05-06 13:04:18.310');
+(id, name, cost, created, popularity, truck_position, keywords)
+VALUES(3, 'Beach', 1000.00, '2019-05-06 13:04:18.310', 0.2, "{}", "[]");
 INSERT INTO foodtruck.game_location
-(id, name, cost, created)
-VALUES(4, 'Carnival', 2000.00, '2019-05-06 13:04:18.310');
+(id, name, cost, created, popularity, truck_position, keywords)
+VALUES(4, 'Carnival', 2000.00, '2019-05-06 13:04:18.310', 0.25, "{}", "[]");
 
 -- Menu Item Equipment
 TRUNCATE foodtruck.game_menuitemequipment;

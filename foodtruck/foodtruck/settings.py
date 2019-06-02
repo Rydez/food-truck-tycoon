@@ -22,7 +22,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 config = None
-with open('/data/foodtruck-config.json') as f:
+config_path = '/data/foodtruck-config.json'
+
+# Check if this is running on Windows
+if os.name == 'nt':
+    config_path = 'C:/Program Files/Git' + config_path
+
+with open(config_path) as f:
  config = json.loads(f.read())
 
 SECRET_KEY = config['SECRET_KEY']

@@ -7,10 +7,16 @@ import time, os, signal
 
 class Command(BaseCommand):
     help = 'Run all commands'
-    commands = [
-        './node_modules/.bin/webpack --config webpack.config.js --watch',
-        'python manage.py runserver'
-    ]
+    if os.name == 'nt':
+        commands = [
+            'node_modules\\.bin\\webpack --config webpack.config.js --watch',
+            'python manage.py runserver'
+        ]
+    else:
+        commands = [
+            './node_modules/.bin/webpack --config webpack.config.js --watch',
+            'python manage.py runserver'
+        ]
 
     def handle(self, *args, **options):
         proc_list = []
