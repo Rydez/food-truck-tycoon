@@ -27,6 +27,7 @@
 
 import numpy
 from random import randint, random, uniform
+from decimal import Decimal
 from ..models.sale import Sale
 from ..models.headline import Headline
 from ..models.location import Location
@@ -42,9 +43,9 @@ CONDITION_PROBABILITIES = {
 
 def simulate_day(career):
   day = career.days.latest('created')
-  career_menu_items = career.menu_items.all()
-  all_menu_items = MenuItem.objects.all()
-  career_resources = career.resources.all()
+  career_menu_items = career.career_menu_items.all()
+  menu_items = MenuItem.objects.all()
+  career_resources = career.career_resources.all()
   headlines = Headline.objects.all().order_by('-created')
   location = Location.objects.get(id=career.location.id)
 
@@ -61,16 +62,21 @@ def simulate_day(career):
   temp_difference = day.max_temp - day.min_temp
   center_temp = temp_difference / 2
 
-  TEMP_FACTOR = 0.03
+  TEMP_FACTOR = 0.003
 
   # For every degree off ideal, subtract some probability
-  people_probability -= round(TEMP_FACTOR * abs(center_temp - IDEAL_TEMP))
+  people_probability -= round(TEMP_FACTOR * abs(center_temp - IDEAL_TEMP), 3)
 
   # For every degree of range subtract some probability
-  people_probability -= round(TEMP_FACTOR * temp_difference)
+  people_probability -= round(TEMP_FACTOR * temp_difference, 3)
 
   # Add people bonus for location popularity
   people_probability += float(location.popularity)
+
+  if people_probability < MIN_PROBABILITY:
+    people_probability = MIN_PROBABILITY
+  elif people_probability > MAX_PROBABILITY:
+    people_probability = MAX_PROBABILITY
 
   # Probability that someone will get in line
   HEADLINE_COUNT = 7
@@ -91,13 +97,14 @@ def simulate_day(career):
 
   # Menu item headlines
   menu_item_probabilities_dict = {}
-  for menu_item in all_menu_items:
+  for menu_item in menu_items:
+    if menu_item.name not in menu_item_probabilities_dict:
+      menu_item_probabilities_dict[menu_item.name] = 0.75
+
     for headline in recent_headlines:
       if headline.menu_item.id == menu_item.id:
-        if menu_item.name in menu_item_probabilities_dict:
-          menu_item_probabilities_dict[menu_item.name] += headline.polarity
-        else:
-          menu_item_probabilities_dict[menu_item.name] = 0.5 + headline.polarity
+        menu_item_probabilities_dict[menu_item.name] += headline.polarity
+
 
   menu_item_probabilities = []
   for name, probability in menu_item_probabilities_dict.items():
@@ -106,16 +113,16 @@ def simulate_day(career):
       'probability': probability
     })
 
-  career_menu_items_by_name = {}
-  for menu_item in career_menu_items:
-    career_menu_items_by_name[menu_item.name] = menu_item
-
   menu_item_probabilities = sorted(menu_item_probabilities, key=lambda i: i['probability'])
+
+  career_menu_items_by_name = {}
+  for career_menu_item in career_menu_items:
+    career_menu_items_by_name[career_menu_item.menu_item.name] = career_menu_item
 
   MIN_WAIT_TIME = 2
   MAX_WAIT_TIME = 10
 
-  IDEAL_WAIT_TIME = MAX_WAIT_TIME - MIN_WAIT_TIME
+  IDEAL_WAIT_TIME = 0.66 * (MAX_WAIT_TIME - MIN_WAIT_TIME)
 
   current_wait_time = 0
 
@@ -150,22 +157,29 @@ def simulate_day(career):
       # The customer's review will then be which ever one is most polarized.
 
       # Rate the speed
-      speed_rating = round(5 - (current_wait_time / IDEAL_WAIT_TIME))
+      speed_rating = round(5 - (current_wait_time / IDEAL_WAIT_TIME), 1)
+      if speed_rating < 0:
+        speed_rating = 0
+      elif speed_rating > 5:
+        speed_rating = 5
 
       # Choose and rate the menu item
       cost_of_resources = 0
       menu_item_random = random()
       taste_rating = 0
+      career_menu_item = None
       for menu_item_probability in menu_item_probabilities:
         cost_of_resources = 0
         name = menu_item_probability['name']
         probability = menu_item_probability['probability']
+        if name not in career_menu_items_by_name:
+          continue
+
         career_menu_item = career_menu_items_by_name[name]
 
         is_probable = menu_item_random < probability
-        is_on_menu = name in career_menu_items_by_name
         has_resources = True
-        for menu_item_resource in career_menu_item.menu_item_resources.all():
+        for menu_item_resource in career_menu_item.menu_item.menu_item_resources.all():
           cost_of_resources += menu_item_resource.resource.cost * menu_item_resource.quantity
           for career_resource in career_resources:
             is_resource = menu_item_resource.resource.id == career_resource.resource.id
@@ -173,21 +187,24 @@ def simulate_day(career):
             if is_resource and not_enough:
               has_resources = False
 
-        if is_probable and is_on_menu and has_resources:
-          sale['menu_item'] = career_menu_item.id
+        if is_probable and has_resources:
+          sale['menu_item'] = career_menu_item.menu_item
           sale['price'] = career_menu_item.price
           taste_rating = round(5 * probability, 1)
+          break
 
       # Rate the price
-      reasonable_profit_factor = 3
-      ideal_price = reasonable_profit_factor * cost_of_resources
-      price_rating = round(2.5 * (ideal_price / career_menu_item.price), 1)
-      if price_rating > 5:
-        price_rating = 5        
+      price_rating = 2.5
+      if 'price' in sale:
+        reasonable_profit_factor = 3
+        ideal_price = reasonable_profit_factor * float(cost_of_resources)
+        price_rating = round(5 - (1.5 * (float(career_menu_item.price) / ideal_price)), 1)
+        if price_rating > 5:
+          price_rating = 5
 
-      speed_polarity = abs(speed_rating - 2.5)
-      taste_polarity = abs(taste_rating - 2.5)
-      price_polarity = abs(price_rating - 2.5)
+      speed_polarity = abs(Decimal(speed_rating) - Decimal(2.5))
+      taste_polarity = abs(Decimal(taste_rating) - Decimal(2.5))
+      price_polarity = abs(Decimal(price_rating) - Decimal(2.5))
 
       # Normalize
       polarity_sum = speed_polarity + taste_polarity + price_polarity
@@ -196,18 +213,21 @@ def simulate_day(career):
       price_probability = price_polarity / polarity_sum
 
       review_type = numpy.random.choice(
-        ['speed', 'taste', 'price'], 
+        ['speed', 'taste', 'price'],
         p=[speed_probability, taste_probability, price_probability]
       )
 
-      if review_type == 'speed':
-        sale['rating'] = speed_rating
+      if taste_rating == 0:
+        sale['rating'] = Decimal(0)
+        sale['review'] = 'distasteful'
+      elif review_type == 'speed':
+        sale['rating'] = Decimal(speed_rating)
         sale['review'] = 'fast' if speed_rating > 2.5 else 'slow'
       elif review_type == 'taste':
-        sale['rating'] = taste_rating
+        sale['rating'] = Decimal(taste_rating)
         sale['review'] = 'tasteful' if taste_rating > 2.5 else 'distasteful'
       elif review_type == 'price':
-        sale['rating'] = price_rating
+        sale['rating'] = Decimal(price_rating)
         sale['review'] = 'cheap' if price_rating > 2.5 else 'expensive'
 
       # One star or less is a rejection

@@ -19,13 +19,13 @@ class Sale(models.Model):
     ('slow', 'slow'),
   ]
 
-  price = models.DecimalField(max_digits=8, decimal_places=2)
-  menu_item = models.ForeignKey(MenuItem, on_delete=models.SET_NULL, null=True)
+  price = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True)
+  menu_item = models.ForeignKey(MenuItem, on_delete=models.SET_NULL, blank=True, null=True)
   day = models.ForeignKey('Day', on_delete=models.SET_NULL, null=True)
   result = models.CharField(max_length=50, choices=RESULTS)
   review = models.CharField(max_length=50, choices=REVIEWS, null=True)
   minute_of_day = models.PositiveSmallIntegerField()
-  rating = models.DecimalField(max_digits=3, decimal_places=2)
+  rating = models.DecimalField(max_digits=3, decimal_places=2, blank=True, null=True)
   created = models.DateTimeField(auto_now_add=True)
 
   class Meta:
